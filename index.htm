@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <!--
+    =========================================================
+    Essentiel’Gest — Site vitrine (1 page)
+    - HTML : structure + contenus
+    - CSS  : design (luxe + chaleureux + zen)
+    - JS   : petits comportements (reveal au scroll, mailto)
+
+    Notes :
+    - Le site est pensé pour être déposé tel quel en "index.html".
+    - Compatible GitHub Pages (aucune dépendance externe hors Google Fonts).
+    =========================================================
+  -->
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Essentiel’Gest | Votre sérénité administrative</title>
+  <meta name="description" content="Essentiel’Gest : assistance administrative indépendante. Devis, facturation, relances, organisation, préparation comptable." />
+
+  <!-- Pré-connexion pour accélérer le chargement des polices Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Polices :
+       - Nunito : texte (lisible, moderne)
+       - Playfair Display : titres (premium, élégants)
+  -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@600;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /*
+      =========================================================
+      1) Variables de design (couleurs, ombres, rayons)
+      =========================================================
+    */
+    :root{
+      /* Brand (luxe) */
+      --night:#070c1f;     /* bleu nuit */
+      --night2:#0b1630;    /* variante bleu nuit */
+      --gold:#d4af37;      /* doré */
+      --gold2:#f6df8f;     /* doré clair */
+
+      /* Warm (chaleureux) */
+      --peach:#f6c1a6;
+      --terracotta:#e07a5f;
+      --sage:#8aa399;
+
+      /* UI */
+      --text:#ffffff;
+      --textSoft: rgba(255,255,255,.88);
+      --textMute: rgba(255,255,255,.72);
+      --card: rgba(255,255,255,.07);
+      --card2: rgba(255,255,255,.05);
+      --border: rgba(246,223,143,.20);
+      --radius: 26px;
+      --shadow: 0 22px 60px rgba(0,0,0,.42);
+      --max: 1160px;
+    }
+
+    /* Reset léger */
+    *{ box-sizing:border-box; }
+
+    /* Défilement doux (si l’utilisateur ne préfère pas réduire les animations) */
+    html{ scroll-behavior:smooth; }
+
+    /*
+      =========================================================
+      2) Fond + layout global
+      =========================================================
+    */
+    body{
+      margin:0;
+      font-family:'Nunito',sans-serif;
+      color: var(--text);
+
+      /*
+        Fond en couches :
+        - 3 halos colorés (pêche, doré, sauge) pour la chaleur
+        - 1 dégradé sombre pour la base premium
+      */
+      background:
+        radial-gradient(900px 600px at 12% 0%, rgba(246,193,166,.26), transparent 55%),
+        radial-gradient(1050px 720px at 92% 8%, rgba(212,175,55,.22), transparent 58%),
+        radial-gradient(950px 650px at 62% 105%, rgba(138,163,153,.16), transparent 55%),
+        linear-gradient(180deg, var(--night) 0%, #050813 100%);
+
+      overflow-x:hidden; /* évite un scroll horizontal en cas d’effets de fond */
+    }
+
+    /* Conteneur principal */
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:28px 18px 92px;
+      position:relative; /* nécessaire pour positionner les “blobs” */
+    }
+
+    /*
+      =========================================================
+      3) Blobs d’ambiance (zen)
+      - Position absolue
+      - Flou + opacité
+      - Animation très lente
+      =========================================================
+    */
+    .blob{
+      position:absolute;
+      filter: blur(32px);
+      opacity:.45;
+      pointer-events:none;
+      mix-blend-mode: screen;
+      animation: blobFloat 28s ease-in-out infinite;
+    }
+
+    .blob.a{
+      width:360px; height:360px;
+      left:-120px; top:140px;
+      background:radial-gradient(circle at 30% 30%, rgba(246,193,166,.75), rgba(246,193,166,0) 60%);
+    }
+
+    .blob.b{
+      width:420px; height:420px;
+      right:-160px; top:60px;
+      background:radial-gradient(circle at 60% 40%, rgba(246,223,143,.60), rgba(246,223,143,0) 62%);
+      animation-duration: 32s; /* légèrement différent pour éviter un mouvement synchronisé */
+    }
+
+    .blob.c{
+      width:420px; height:420px;
+      left:40%; bottom:-200px;
+      background:radial-gradient(circle at 40% 35%, rgba(138,163,153,.55), rgba(138,163,153,0) 62%);
+      animation-duration: 36s;
+    }
+
+    /* Animation zen, très légère */
+    @keyframes blobFloat{
+      0%   { transform:translateY(0)   translateX(0)  scale(1); }
+      50%  { transform:translateY(-10px) translateX(6px) scale(1.02); }
+      100% { transform:translateY(0)   translateX(0)  scale(1); }
+    }
+
+    /*
+      =========================================================
+      4) Barre de navigation (sticky)
+      =========================================================
+    */
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+
+      padding:14px 18px;
+      margin:10px auto 22px;
+
+      border:1px solid var(--border);
+      background: rgba(7,12,31,.58); /* verre fumé */
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 14px 36px rgba(0,0,0,.35);
+
+      position: sticky;
+      top: 12px;
+      z-index: 40;
+    }
+
+    .brand{ display:flex; align-items:center; gap:12px; }
+
+    /* Logo abstrait (pas encore le logo final, juste un “badge” de marque) */
+    .logo{
+      width:44px; height:44px;
+      border-radius: 16px;
+      background:
+        radial-gradient(18px 18px at 30% 25%, var(--gold2), rgba(246,223,143,0) 60%),
+        linear-gradient(135deg, rgba(246,193,166,.95), rgba(212,175,55,.65));
+      border:1px solid rgba(246,223,143,.55);
+      box-shadow: 0 14px 28px rgba(212,175,55,.18);
+      position:relative;
+      overflow:hidden;
+
+      /* “flottement” très doux */
+      animation: float 16s ease-in-out infinite;
+    }
+
+    /* “sheen” (reflet) très lent */
+    .logo:after{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.45), rgba(255,255,255,0));
+      transform: rotate(25deg) translateX(-60%);
+      animation: sheen 14s ease-in-out infinite;
+    }
+
+    @keyframes sheen{
+      0%,35% { transform: rotate(25deg) translateX(-60%); opacity:0; }
+      50%    { opacity:.65; }
+      70%    { transform: rotate(25deg) translateX(60%); opacity:0; }
+      100%   { opacity:0; }
+    }
+
+    @keyframes float{
+      0%   { transform:translateY(0); }
+      50%  { transform:translateY(-12px); }
+      100% { transform:translateY(0); }
+    }
+
+    .brand h1{
+      margin:0;
+      font-family:'Playfair Display', serif;
+      font-weight:900;
+      letter-spacing:.3px;
+    }
+
+    .brand small{
+      display:block;
+      color: var(--gold2);
+      font-weight:900;
+      margin-top:2px;
+    }
+
+    .links{ display:flex; gap:8px; flex-wrap:wrap; }
+
+    .chip{
+      padding:10px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(246,223,143,.18);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      font-weight:900;
+      transition: transform .15s ease, background .15s ease, border .15s ease;
+      text-decoration:none;
+    }
+
+    /* Hover discret */
+    .chip:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+      border-color: rgba(246,223,143,.45);
+    }
+
+    /* Call-to-action (CTA) : plus lumineux, mais sans agressivité */
+    .chip.cta{
+      background: linear-gradient(135deg, rgba(246,223,143,.98), rgba(224,122,95,.44));
+      color:#1a1404;
+      border-color: rgba(246,223,143,.85);
+      box-shadow: 0 12px 26px rgba(212,175,55,.22);
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* Reflet sur le CTA, très espacé (zen) */
+    .chip.cta:after{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.55), rgba(255,255,255,0));
+      transform: rotate(18deg) translateX(-70%);
+      animation: ctaSheen 9s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    @keyframes ctaSheen{
+      0%,65% { opacity:0; transform: rotate(18deg) translateX(-70%); }
+      75%    { opacity:.45; }
+      90%    { opacity:0; transform: rotate(18deg) translateX(70%); }
+      100%   { opacity:0; }
+    }
+
+    /*
+      =========================================================
+      5) Cartes + hero
+      =========================================================
+    */
+    .hero{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 980px){
+      .hero{ grid-template-columns:1fr; }
+    }
+
+    .card{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border:1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    /* Lumière interne très douce (donne du relief sans être flashy) */
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:-45%;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(246,193,166,.20), transparent 38%),
+        radial-gradient(circle at 85% 18%, rgba(246,223,143,.18), transparent 40%);
+      transform: rotate(10deg);
+      pointer-events:none;
+    }
+
+    .hero-left{ padding: 42px 38px 34px; }
+
+    /* Petit label (kicker) au-dessus du titre */
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(246,223,143,.40);
+      background: rgba(224,122,95,.14);
+      color: rgba(246,223,143,.98);
+      font-weight:900;
+      letter-spacing:.35px;
+      font-size: 12px;
+    }
+
+    .hero h2{
+      margin: 16px 0 12px;
+      font-family:'Playfair Display', serif;
+      font-size: clamp(32px, 4.2vw, 48px);
+      line-height: 1.08;
+      letter-spacing:.2px;
+      color: rgba(246,223,143,.92);
+    }
+
+    .hero p{
+      margin:0 0 16px;
+      color: var(--textSoft);
+      font-size: 17px;
+      max-width: 62ch;
+    }
+
+    /* Blocs “stats” : en mode zen, pas d’animation de compteur (texte stable) */
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 820px){
+      .stats{ grid-template-columns:1fr; }
+    }
+
+    .stat{
+      padding: 14px 14px;
+      border-radius: 18px;
+      background: rgba(7,12,31,.38);
+      border:1px solid rgba(246,223,143,.12);
+    }
+
+    .stat .num{
+      font-weight:900;
+      font-size: 22px;
+      color: rgba(246,223,143,.90);
+      line-height:1;
+    }
+
+    .stat .lbl{
+      color: var(--textMute);
+      font-weight:800;
+      font-size: 12px;
+      margin-top:6px;
+    }
+
+    /* Liste de bénéfices (bullets) */
+    .bullets{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 520px){
+      .bullets{ grid-template-columns:1fr; }
+    }
+
+    .bullet{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding: 14px 14px;
+      border-radius: 18px;
+      background: rgba(7,12,31,.42);
+      border:1px solid rgba(246,223,143,.14);
+      transition: transform .22s ease, background .22s ease, border .22s ease;
+    }
+
+    .bullet:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.05);
+      border-color: rgba(246,223,143,.22);
+    }
+
+    .tick{
+      width: 24px; height: 24px;
+      border-radius: 9px;
+      background: rgba(138,163,153,.22);
+      border:1px solid rgba(138,163,153,.45);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#d7f0e6;
+      font-weight:900;
+      flex: 0 0 auto;
+    }
+
+    .bullet strong{ display:block; font-size: 13px; color: rgba(255,255,255,.92); }
+    .bullet span{ color: var(--textMute); font-size: 13px; }
+
+    /* Boutons */
+    .hero-actions{ display:flex; gap: 12px; flex-wrap:wrap; margin-top: 18px; }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-weight:900;
+      letter-spacing:.2px;
+      border:1px solid rgba(246,223,143,.22);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.95);
+      box-shadow: 0 10px 26px rgba(0,0,0,.30);
+      transition: transform .15s ease, background .15s ease, border .15s ease, box-shadow .15s ease;
+      position:relative;
+      overflow:hidden;
+      text-decoration:none;
+      cursor:pointer;
+    }
+
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(246,223,143,.35);
+      box-shadow: 0 12px 26px rgba(0,0,0,.28);
+    }
+
+    /* Bouton principal (doré + touche terracotta) */
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(246,223,143,.98), rgba(224,122,95,.42));
+      color:#1a1404;
+      border-color: rgba(246,223,143,.85);
+      box-shadow: 0 14px 34px rgba(212,175,55,.28);
+    }
+
+    /* Reflet très doux sur le bouton principal */
+    .btn.primary:after{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.55), rgba(255,255,255,0));
+      transform: rotate(18deg) translateX(-70%);
+      animation: ctaSheen 9s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    /* Colonne droite (panneaux) */
+    .hero-right{ padding: 22px; display:flex; flex-direction:column; gap: 14px; }
+
+    .panel{
+      padding: 18px 18px;
+      border-radius: 20px;
+      background: rgba(7,12,31,.55);
+      border:1px solid rgba(246,223,143,.16);
+    }
+
+    .panel h3{
+      margin:0 0 10px;
+      font-family:'Playfair Display', serif;
+      font-size: 18px;
+      color: rgba(255,255,255,.92);
+    }
+
+    .meta{ display:grid; grid-template-columns: 1fr; gap: 10px; color: rgba(255,255,255,.90); font-size: 14px; }
+
+    .meta label{
+      display:block;
+      color: var(--gold2);
+      font-weight:900;
+      font-size: 12px;
+      margin-bottom:4px;
+    }
+
+    .meta .row{
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(246,223,143,.12);
+    }
+
+    /*
+      =========================================================
+      6) Sections (services, offres, contact, RGPD)
+      =========================================================
+    */
+    .section{ margin-top: 26px; padding: 28px 24px; }
+
+    .section h3{
+      margin:0 0 12px;
+      font-family:'Playfair Display', serif;
+      font-size: 26px;
+      color: var(--gold2);
+    }
+
+    .section p{ margin: 0 0 14px; color: var(--textSoft); }
+
+    .grid3{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+
+    @media (max-width: 980px){
+      .grid3{ grid-template-columns:1fr; }
+    }
+
+    .tile{
+      padding: 18px 18px;
+      border-radius: 20px;
+      background: rgba(7,12,31,.55);
+      border:1px solid rgba(246,223,143,.16);
+      transition: transform .16s ease;
+    }
+
+    .tile:hover{ transform: translateY(-1px); }
+
+    .tile h4{ margin:0 0 8px; font-size: 18px; color: rgba(255,255,255,.92); }
+    .tile ul{ margin:0; padding-left: 18px; color: rgba(255,255,255,.86); }
+    .tile li{ margin: 6px 0; }
+
+    /* Cartes d’offres */
+    .pricing{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+
+    @media (max-width: 1100px){
+      .pricing{ grid-template-columns:1fr; }
+    }
+
+    .price-card{
+      padding: 20px 18px;
+      border-radius: 24px;
+      background: rgba(7,12,31,.55);
+      border:1px solid rgba(246,223,143,.16);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .price-card:before{
+      content:"";
+      position:absolute;
+      inset:-50%;
+      background: radial-gradient(circle at top right, rgba(224,122,95,.18), transparent 40%);
+      transform: rotate(18deg);
+      pointer-events:none;
+    }
+
+    .badge{
+      position:absolute;
+      top: 14px; right: 14px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(224,122,95,.18);
+      border:1px solid rgba(246,223,143,.20);
+      color: rgba(246,223,143,.98);
+      font-weight:900;
+      font-size: 11px;
+    }
+
+    .price-card h4{ margin:0 0 8px; font-size: 20px; color: rgba(255,255,255,.94); }
+
+    .price{
+      font-size: 34px;
+      font-weight: 1000;
+      letter-spacing:.2px;
+      margin: 6px 0 10px;
+      color: var(--gold2);
+    }
+
+    .price small{ font-size: 12px; color: rgba(255,255,255,.76); font-weight:800; }
+    .price-card ul{ margin:0; padding-left: 18px; color: rgba(255,255,255,.88); }
+    .price-card li{ margin:6px 0; }
+    .price-card .btn{ margin-top: 12px; width: 100%; }
+
+    /* Formulaire de contact */
+    .contact{ display:grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items:start; }
+
+    @media (max-width: 980px){
+      .contact{ grid-template-columns:1fr; }
+    }
+
+    .form{ display:grid; gap: 10px; }
+
+    input, textarea{
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(246,223,143,.20);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.95);
+      outline:none;
+      font-family: inherit;
+    }
+
+    textarea{ min-height: 120px; resize: vertical; }
+
+    input::placeholder, textarea::placeholder{ color: rgba(255,255,255,.55); }
+
+    .foot{
+      margin-top: 18px;
+      color: rgba(255,255,255,.70);
+      font-size: 12px;
+      text-align:center;
+    }
+
+    /*
+      =========================================================
+      7) Reveal au scroll
+      - Les sections commencent invisibles
+      - IntersectionObserver ajoute .on quand l’élément entre dans la vue
+      =========================================================
+    */
+    .reveal{
+      opacity:0;
+      transform: translateY(8px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+
+    .reveal.on{
+      opacity:1;
+      transform:none;
+    }
+
+    /*
+      Accessibilité : si l’utilisateur préfère réduire les animations,
+      on désactive la plupart des animations.
+    */
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      .logo,.blob,.chip.cta:after,.btn.primary:after{ animation:none; }
+      .reveal{ opacity:1; transform:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- Blobs de fond -->
+    <div class="blob a" aria-hidden="true"></div>
+    <div class="blob b" aria-hidden="true"></div>
+    <div class="blob c" aria-hidden="true"></div>
+
+    <!--
+      NAV sticky :
+      - Liens ancres vers les sections
+      - CTA "Demander un devis" pour l’action principale
+    -->
+    <header class="nav reveal">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Essentiel’Gest</h1>
+          <small>Votre sérénité administrative</small>
+        </div>
+      </div>
+
+      <nav class="links" aria-label="Navigation">
+        <a class="chip" href="#services">Services</a>
+        <a class="chip" href="#offres">Offres</a>
+        <a class="chip" href="#contact">Contact</a>
+        <a class="chip cta" href="#contact">Demander un devis</a>
+      </nav>
+    </header>
+
+    <!-- HERO : promesse + bénéfices + CTA -->
+    <section class="hero reveal">
+      <div class="card hero-left">
+        <div class="kicker">🌿 Zen, premium et chaleureux</div>
+
+        <!-- Phrase principale (headline) -->
+        <h2>L’excellence administrative, au service de votre tranquillité.</h2>
+
+        <!-- Pitch (une phrase claire) -->
+        <p>
+          Devis, factures, relances, organisation, préparation comptable : Essentiel’Gest vous accompagne avec méthode et douceur,
+          pour que vous gardiez votre énergie sur votre activité.
+        </p>
+
+        <!--
+          "Stats" : indicateurs simples
+          En mode zen : pas d’animation, valeurs stables.
+        -->
+        <div class="stats" aria-label="Points forts">
+          <div class="stat">
+            <div class="num" data-count="48">48</div>
+            <div class="lbl">heures/mois rendues au dirigeant</div>
+          </div>
+          <div class="stat">
+            <div class="num" data-count="3">3</div>
+            <div class="lbl">options : heure, jour, forfait</div>
+          </div>
+          <div class="stat">
+            <div class="num" data-count="100">100</div>
+            <div class="lbl">% sur-mesure, selon vos besoins</div>
+          </div>
+        </div>
+
+        <!-- Bénéfices -->
+        <div class="bullets">
+          <div class="bullet"><div class="tick">✓</div><div><strong>Chaleur & écoute</strong><span>Un accompagnement humain et rassurant.</span></div></div>
+          <div class="bullet"><div class="tick">✓</div><div><strong>Organisation simple</strong><span>Des process clairs, sans jargon.</span></div></div>
+          <div class="bullet"><div class="tick">✓</div><div><strong>Relances maîtrisées</strong><span>Professionnel, ferme, toujours élégant.</span></div></div>
+          <div class="bullet"><div class="tick">✓</div><div><strong>Temps gagné</strong><span>Vous reprenez la main sur vos journées.</span></div></div>
+        </div>
+
+        <!-- CTA -->
+        <div class="hero-actions">
+          <a class="btn primary" href="#contact">📩 Demander un devis</a>
+          <a class="btn" href="#offres">💎 Voir les offres</a>
+        </div>
+      </div>
+
+      <!-- Colonne droite : pour qui + ce qui est pris en charge -->
+      <aside class="card hero-right">
+        <div class="panel">
+          <h3>Pour qui</h3>
+          <div class="meta">
+            <div class="row"><label>TPE & artisans</label>Facturation, relances, suivi clients/fournisseurs</div>
+            <div class="row"><label>Indépendants</label>Organisation, administratif courant, tableaux</div>
+            <div class="row"><label>Professions libérales</label>Structuration, dossiers, préparation comptable</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Prise en charge</h3>
+          <div class="meta">
+            <div class="row">Devis, factures, relances</div>
+            <div class="row">Classement, archivage, organisation</div>
+            <div class="row">Préparation comptable</div>
+            <div class="row">Outils et routines</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="card section reveal">
+      <h3>Services</h3>
+      <p>Des prestations premium, avec un vrai sens du détail. Du rythme, sans stress.</p>
+
+      <div class="grid3">
+        <div class="tile">
+          <h4>Gestion administrative</h4>
+          <ul>
+            <li>Devis, facturation, suivi</li>
+            <li>Relances clients</li>
+            <li>Dossiers, courriers, emails</li>
+          </ul>
+        </div>
+
+        <div class="tile">
+          <h4>Organisation & classement</h4>
+          <ul>
+            <li>Tri, archivage</li>
+            <li>Procédures simples</li>
+            <li>Tableaux de suivi</li>
+          </ul>
+        </div>
+
+        <div class="tile">
+          <h4>Préparation comptable</h4>
+          <ul>
+            <li>Collecte des pièces</li>
+            <li>Suivi dépenses/recettes</li>
+            <li>Transmission cabinet</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- OFFRES -->
+    <section id="offres" class="card section reveal">
+      <h3>Offres & tarifs</h3>
+      <p>Choisissez la formule qui vous rassure. Tout est ajustable.</p>
+
+      <div class="pricing">
+        <div class="price-card">
+          <div class="badge">Démarrage</div>
+          <h4>Pack Essentiel</h4>
+          <div class="price">180 € <small>/ jour</small></div>
+          <ul>
+            <li>Gestion courante</li>
+            <li>Devis, factures, relances</li>
+            <li>Organisation</li>
+          </ul>
+          <a class="btn primary" href="#contact">Choisir Essentiel</a>
+        </div>
+
+        <div class="price-card">
+          <div class="badge">Équilibré</div>
+          <h4>Pack Sérénité</h4>
+          <div class="price">1 800 € <small>/ mois</small></div>
+          <ul>
+            <li>10 jours / mois</li>
+            <li>Suivi clients & fournisseurs</li>
+            <li>Préparation comptable</li>
+          </ul>
+          <a class="btn primary" href="#contact">Choisir Sérénité</a>
+        </div>
+
+        <div class="price-card">
+          <div class="badge">Max délégation</div>
+          <h4>Pack Liberté</h4>
+          <div class="price">3 600 € <small>/ mois</small></div>
+          <ul>
+            <li>20 jours / mois</li>
+            <li>Gestion complète</li>
+            <li>Support dirigeant</li>
+          </ul>
+          <a class="btn primary" href="#contact">Choisir Liberté</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="card section reveal">
+      <h3>Contact</h3>
+      <p>Expliquez-moi votre besoin et je vous réponds rapidement.</p>
+
+      <div class="contact">
+        <div class="tile">
+          <h4>Coordonnées</h4>
+          <ul style="list-style:none;padding-left:0;margin:0;color:rgba(255,255,255,.90)">
+            <li><strong>Entreprise :</strong> Essentiel’Gest</li>
+            <li><strong>Slogan :</strong> Votre sérénité administrative</li>
+            <li><strong>Email :</strong> essentielgest@outlook.com</li>
+            <li><strong>Téléphone :</strong> 07 52 07 37 88</li>
+          </ul>
+
+          <!-- Boutons rapides (mobile-friendly) -->
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn" href="tel:+33752073788">📞 Appeler</a>
+            <a class="btn" href="mailto:essentielgest@outlook.com">✉️ Écrire</a>
+          </div>
+        </div>
+
+        <!--
+          Formulaire :
+          - On ne stocke rien côté site
+          - Le bouton ouvre la messagerie du visiteur via mailto
+        -->
+        <form class="tile form" id="contactForm">
+          <input id="name" placeholder="Votre nom" required />
+          <input id="email" type="email" placeholder="Votre email" required />
+          <textarea id="msg" placeholder="Votre besoin"></textarea>
+          <button type="submit" class="btn primary">Envoyer la demande</button>
+          <div style="color: rgba(255,255,255,.70); font-size: 12px">
+            Le bouton ouvre votre messagerie avec un message pré-rempli (aucune donnée stockée sur le site).
+          </div>
+        </form>
+      </div>
+
+      <div class="foot">
+        © <span id="year"></span> Essentiel’Gest. Tous droits réservés.
+        • <a href="#rgpd" style="color: rgba(246,223,143,.95); text-decoration: underline;">Mentions RGPD</a>
+      </div>
+    </section>
+
+    <!-- RGPD -->
+    <section id="rgpd" class="card section reveal">
+      <h3>🔒 Mentions RGPD & protection des données</h3>
+      <p>La protection de vos données personnelles est une priorité pour Essentiel’Gest.</p>
+
+      <div class="tile">
+        <p><strong>Responsable du traitement :</strong> Essentiel’Gest</p>
+        <p><strong>Contact :</strong> essentielgest@outlook.com</p>
+        <p><strong>Données collectées :</strong> nom, email et message transmis via le formulaire de contact.</p>
+        <p><strong>Finalité :</strong> répondre à vos demandes, établir des devis et assurer le suivi commercial.</p>
+        <p><strong>Durée de conservation :</strong> 3 ans maximum à compter du dernier contact.</p>
+        <p><strong>Droits :</strong> vous disposez d’un droit d’accès, de rectification, d’opposition et de suppression de vos données conformément au RGPD.</p>
+        <p>Pour exercer vos droits, il vous suffit d’écrire à : <strong>essentielgest@outlook.com</strong></p>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    /*
+      =========================================================
+      JavaScript minimal (zen)
+      - Année automatique dans le footer
+      - Reveal au scroll via IntersectionObserver
+      - Formulaire de contact : ouverture mailto pré-rempli
+      =========================================================
+    */
+
+    // 1) Année automatique
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 2) Reveal au scroll (effet doux)
+    // IntersectionObserver est plus performant qu’un "onscroll" classique.
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('on');
+            io.unobserve(entry.target); // on stoppe l’observation une fois révélé
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    revealEls.forEach((el) => io.observe(el));
+
+    // 3) Mode zen : si des éléments possèdent data-count, on affiche simplement la valeur (pas d’animation).
+    const counters = document.querySelectorAll('[data-count]');
+    counters.forEach((c) => {
+      const v = c.getAttribute('data-count');
+      if (v) c.textContent = v;
+    });
+
+    // 4) Formulaire -> mailto
+    // Important : mailto dépend du client mail du visiteur. C’est parfait pour un site vitrine simple.
+    const DEST = 'essentielgest@outlook.com';
+    const form = document.getElementById('contactForm');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // On récupère les champs en "safe trim".
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('msg').value.trim();
+
+      // Sujet + corps encodés pour fonctionner dans une URL.
+      const subject = encodeURIComponent("Demande d'information / devis - Essentiel’Gest");
+
+      const body = encodeURIComponent(
+        `Bonjour Gwenn,\n\n` +
+        `Je vous contacte via votre site Essentiel’Gest.\n\n` +
+        `Nom : ${name}\n` +
+        `Email : ${email}\n\n` +
+        `Besoin :\n${msg}\n\n` +
+        `Merci et à bientôt.\n`
+      );
+
+      // Redirection vers la messagerie.
+      window.location.href = `mailto:${DEST}?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
