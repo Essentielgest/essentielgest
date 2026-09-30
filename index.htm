@@ -64,13 +64,15 @@ header{background:rgba(255,253,249,.98);border-bottom:1px solid #eadbc5}
 footer{background:#062a49}
 .botanical:before{background:#092945;box-shadow:45px 52px 0 -5px #d8a24c,-18px 92px 0 -7px #d8a24c,55px 135px 0 -8px #092945}
 @media(max-width:620px){.nav{min-height:74px}.hero{min-height:auto}.hero-content{text-align:center;padding:62px 0}.hero h1{font-size:3.15rem}.hero h1 .script{margin-left:0;font-size:2.45rem}.hero .slogan{margin-left:0;text-align:center}.actions{margin-left:0;justify-content:center}}
+
+.about{background:#fffdf9;overflow:hidden}.about-grid{display:grid;grid-template-columns:1.05fr 1.7fr 1fr;gap:24px;align-items:stretch}.about-copy h3,.expertise h3{color:var(--navy);font-size:1.65rem}.about-copy>h3{color:var(--gold)}.about-copy p{font-size:.86rem}.expertise{background:#fff;border:1px solid #f1e2ce;border-radius:18px;padding:24px;box-shadow:var(--shadow)}.expertise>div{padding:11px 0;border-bottom:1px solid #f3eadf}.expertise>div:last-child{border-bottom:0}.expertise b{display:block;color:var(--navy)}.expertise small{display:block;margin-top:3px;color:var(--muted)}.skill-pills{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}.skill-pills span{background:#fff;border:1px solid #f1e5d6;border-radius:14px;padding:10px;font-size:.74rem;color:var(--navy)}.about-desk{position:relative;min-height:360px;border-radius:22px;background:linear-gradient(145deg,#f6eee4,#fff);overflow:hidden;box-shadow:var(--shadow)}.about-desk:before{content:"";position:absolute;left:-30px;bottom:-30px;width:130px;height:230px;border-radius:100% 0;background:var(--navy);transform:rotate(28deg);box-shadow:55px -12px 0 -16px var(--gold2)}.laptop{position:absolute;width:58%;height:42%;left:17%;top:22%;background:linear-gradient(135deg,#263746,#d7d9db);border-radius:8px;transform:skew(-4deg);box-shadow:0 16px 22px rgba(0,0,0,.15)}.cup{position:absolute;width:72px;height:72px;border-radius:50%;background:#fff;right:12%;top:46%;box-shadow:0 7px 15px rgba(0,0,0,.12);border:3px solid #d59a42}.notebook{position:absolute;width:55%;height:18%;left:28%;bottom:13%;background:#fff;border-radius:5px;transform:rotate(-5deg);box-shadow:0 8px 15px rgba(0,0,0,.08);border-top:4px solid var(--gold)}.audience-grid{grid-template-columns:repeat(5,1fr)}.allpros{text-align:center;margin:24px auto 0;max-width:760px;color:var(--navy)}.qrbox{display:flex;align-items:center;gap:12px;text-align:center;font-family:"Cormorant Garamond",serif;font-size:1.15rem}.qrbox img{width:94px;height:94px;background:#fff;padding:5px;border:2px solid var(--gold);border-radius:8px}.qrbox small{font:600 .55rem Montserrat,sans-serif;letter-spacing:.08em}.footer-contact{margin-top:16px;font-size:.76rem;line-height:1.8}.footer-top{align-items:center}@media(max-width:980px){.about-grid{grid-template-columns:1fr 1fr}.about-desk{grid-row:span 2}.expertise{grid-column:2}.audience-grid{grid-template-columns:1fr 1fr}.qrbox{align-self:center}}@media(max-width:620px){.about-grid{grid-template-columns:1fr}.about-desk,.expertise{grid-column:auto;grid-row:auto}.about-desk{min-height:260px}.skill-pills{grid-template-columns:1fr}.audience-grid{grid-template-columns:1fr}.qrbox{flex-wrap:wrap;justify-content:center}}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap nav">
     <a class="brand" href="#accueil"><strong>Essentiel’Gest</strong><span class="script">By Gwenn</span><div class="tag">Votre sérénité administrative</div></a>
-    <nav class="menu" aria-label="Navigation"><a href="#accueil">Accueil</a><a href="#prestations">Prestations</a><a href="#pourqui">Pour qui ?</a><a href="#pourquoi">Pourquoi moi ?</a><a href="#contact">Contact</a></nav>
+    <nav class="menu" aria-label="Navigation"><a href="#accueil">Accueil</a><a href="#apropos">À propos</a><a href="#prestations">Prestations</a><a href="#pourqui">Pour qui ?</a><a href="#pourquoi">Pourquoi moi ?</a><a href="#contact">Contact</a></nav>
     <a class="btn gold" href="#contact">✉ Demander un devis</a>
   </div>
 </header>
@@ -86,6 +88,26 @@ footer{background:#062a49}
     <div class="actions"><a class="btn navy" href="#prestations">Découvrir mes prestations →</a><a class="btn gold" href="#contact">✉ Demander un devis</a></div>
   </div></div>
 </section>
+
+<section class="section about" id="apropos"><div class="wrap">
+  <div class="section-title"><h2>Qui suis-je ?</h2><div class="goldline"></div></div>
+  <div class="about-grid">
+    <div class="about-desk" aria-label="Univers de travail"><div class="laptop"></div><div class="cup"></div><div class="notebook"></div></div>
+    <div class="about-copy">
+      <h3>Une expérience multi-sectorielle<br>au service de votre organisation</h3>
+      <p>Forte de <strong>plus de 20 ans d’expérience professionnelle</strong>, j’ai évolué dans des environnements variés et exigeants : banque, assurance et protection sociale, recouvrement, relation client, commerce et gestion administrative.</p>
+      <p>Ces expériences m’ont permis de développer une réelle polyvalence, une grande rigueur et un sens du service, avec toujours la même priorité : apporter des solutions concrètes, un accompagnement fiable et une organisation efficace.</p>
+      <p>Aujourd’hui, avec <strong>Essentiel’Gest By Gwenn</strong>, je mets cette expertise au service des professionnels qui souhaitent gagner du temps et se concentrer sur leur cœur de métier, en s’appuyant sur une personne organisée, réactive et à l’écoute.</p>
+      <div class="skill-pills"><span>▣ Expérience professionnelle</span><span>⚙ Organisation & rigueur</span><span>♙ Relation client</span><span>♡ Écoute & adaptation</span></div>
+    </div>
+    <aside class="expertise"><h3>Mon expertise professionnelle</h3>
+      <div><b>▥ Banque & assurance</b><small>Relation client · Conseil · Suivi de dossiers</small></div>
+      <div><b>▤ Recouvrement</b><small>Relances · Suivi de dossiers · Gestion de situations sensibles</small></div>
+      <div><b>♙ Relation client & commerce</b><small>Écoute · Accompagnement · Développement commercial</small></div>
+      <div><b>⚙ Gestion & organisation</b><small>Rigueur · Suivi administratif · Respect des procédures et échéances</small></div>
+    </aside>
+  </div>
+</div></section>
 
 <section class="section services" id="prestations">
 <div class="botanical" aria-hidden="true"></div>
@@ -107,7 +129,10 @@ footer{background:#062a49}
     <article class="audience-card"><div class="roundicon">⌂</div><h3>TPE & Artisans</h3><p>Pour vous aider à gérer votre administratif et vous concentrer sur votre cœur de métier.</p></article>
     <article class="audience-card"><div class="roundicon">♙</div><h3>Indépendants</h3><p>Un soutien sur-mesure pour faciliter votre organisation au quotidien.</p></article>
     <article class="audience-card"><div class="roundicon">♧</div><h3>Professions libérales</h3><p>Un accompagnement adapté à vos besoins administratifs et RH, en toute confidentialité.</p></article>
+    <article class="audience-card"><div class="roundicon">♜</div><h3>Agriculteurs</h3><p>Un appui administratif pour la gestion de vos documents, dossiers et le suivi au quotidien.</p></article>
+    <article class="audience-card"><div class="roundicon">⚒</div><h3>Garagistes</h3><p>Un soutien administratif pour vous faire gagner du temps et vous recentrer sur votre activité.</p></article>
   </div>
+  <p class="allpros">Et plus largement, <strong>tout professionnel ayant besoin d’un soutien administratif, organisationnel ou RH.</strong></p>
 </div></section>
 
 <section class="why" id="pourquoi"><div class="wrap why-grid">
@@ -130,8 +155,8 @@ footer{background:#062a49}
 </main>
 
 <footer><div class="wrap">
-  <div class="footer-top"><div class="footer-brand"><strong>Essentiel’Gest</strong><span class="script">By Gwenn</span><div class="tag">Votre sérénité administrative</div></div>
-  <nav class="footer-links"><a href="#accueil">Accueil</a><a href="#prestations">Prestations</a><a href="#pourqui">Pour qui ?</a><a href="#pourquoi">Pourquoi moi ?</a><a href="#contact">Contact</a><a href="#mentions">Mentions légales</a></nav></div>
+  <div class="footer-top"><div class="footer-brand"><strong>Essentiel’Gest</strong><span class="script">By Gwenn</span><div class="tag">Votre sérénité administrative</div><div class="footer-contact">☎ 07 70 80 91 14<br>✉ essentielgest@outlook.com<br>◎ www.essentielgest-by-gwenn.fr</div></div><div class="qrbox"><div>Découvrez<br>mon univers</div><img alt="QR code vers le site Essentiel’Gest By Gwenn" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fwww.essentielgest-by-gwenn.fr"><small>SCANNEZ-MOI</small></div>
+  <nav class="footer-links"><a href="#accueil">Accueil</a><a href="#apropos">À propos</a><a href="#prestations">Prestations</a><a href="#pourqui">Pour qui ?</a><a href="#pourquoi">Pourquoi moi ?</a><a href="#contact">Contact</a><a href="#mentions">Mentions légales</a></nav></div>
   <div class="legal" id="mentions">
     <strong>Bénéficiaire d’un CAPE n° 16141 jusqu’au 30/09/2027 maximum – Espace des Entrepreneurs, 4 rue des Buisses 59800 Lille</strong><br>
     SIRET : 418 541 553 000 32 – TVA intracommunautaire : FR 23 418 541 553 – Code NAF : 8899B
