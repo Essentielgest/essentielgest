@@ -9,6 +9,50 @@ header{height:44px;border-bottom:1px solid #eee;box-shadow:0 2px 8px #0001;backg
 .audience{padding:0 25px}.aud-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.aud{border:1px solid #eee;border-radius:7px;box-shadow:var(--shadow);padding:4px;display:grid;grid-template-columns:35px 1fr;grid-template-rows:29px 56px;column-gap:5px}.aud .round{width:31px;height:31px;background:var(--o);color:#fff;border:0;font-size:14px}.aud h3{font-size:13px;align-self:center}.aud .pic{height:53px;background:center/cover no-repeat;border-radius:3px}.aud p{font-size:7px;line-height:1.15;padding:4px 2px}.tpe{background-image:url("https://cdn.shopify.com/s/files/1/1043/6658/files/20250217_185217_2_c86386c1-1a50-494d-b523-06daa2adca64_600x600.jpg?v=1764789489")}.ind{background-image:url("https://assets.st-note.com/img/1773364290-hO9gCRnZtQ1SiDjGeVFU8XPW.png")}.lib{background-image:url("https://assets.st-note.com/img/1773364290-hO9gCRnZtQ1SiDjGeVFU8XPW.png")}.agr{background-image:url("https://ktmt.vnmediacdn.com/images/2023/08/30/82-1693391288-top-5-xu-huong-phat-trien-nong-nghiep-ben-vung-va-than-thien-voi-moi-truong.jpg")}.gar{background-image:url("https://gillvictyresandautorepair.com.au/img/about.jpg")}.all{height:29px;margin:5px 12px 0;border-radius:16px;background:var(--b);color:#fff;text-align:center;padding:6px;font:14px "Cormorant Garamond"}
 footer{height:70px;background:var(--b);color:#fff;position:relative;padding:5px 250px}.foot{display:grid;grid-template-columns:1.25fr .9fr .9fr;align-items:center;height:45px}.contact h2{font-size:20px;color:#fff}.contact p,.coords{font-size:8px;line-height:1.3}.discover{display:flex;align-items:center;justify-content:center;gap:15px;font:16px Parisienne}.discover img{width:49px;height:49px;background:#fff;padding:2px}.footlinks{text-align:center;border-top:1px solid var(--o);font-size:6px;padding-top:3px}.legal{text-align:center;font-size:6px;line-height:1.15;padding:3px 15px}
 @media(max-width:900px){.shell{min-width:900px}body{overflow-x:auto}}
+
+/* === Refonte Essentiel'Gest — identité carte de visite === */
+:root{--b:#062f5c;--o:#c9822d;--gold:#d8a34f;--ivory:#fffdf9;--cream:#fbf3e8}
+body{background:#f4f1ec;color:var(--b)}
+.shell{background:var(--ivory);box-shadow:0 0 40px #062f5c18}
+header{height:72px;background:rgba(255,253,249,.98);border-bottom:1px solid #d8a34f55;position:sticky;top:0;z-index:30}
+.nav{height:72px;max-width:1320px;width:92%;gap:28px}
+.mini-logo{min-width:190px;text-align:left;position:relative;padding-left:20px}
+.mini-logo:before{content:"";position:absolute;left:0;top:-5px;width:9px;height:48px;border-left:2px solid var(--gold);border-radius:50%}
+.mini-logo b{font-size:29px;line-height:.8}.mini-logo i{font-size:19px}.mini-logo small{font-size:6px;margin-top:5px}
+.nav nav{margin-left:auto;gap:22px;font-size:10px}.nav nav a{padding:25px 0 9px}.topbtn{font-size:11px;padding:11px 19px;background:var(--gold);border-radius:22px}
+
+.hero{height:505px;grid-template-columns:52% 48%;border:0;background:var(--ivory);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;left:-8%;right:-8%;bottom:-82px;height:135px;border-radius:50%;border-top:3px solid var(--gold);transform:rotate(-2deg);z-index:6}
+.hero-copy{padding:65px 40px 20px 115px;text-align:center}
+.hero h1{font-size:88px;line-height:.65}.hero h1 span{font-size:58px;margin-top:23px;color:var(--gold)}
+.tag{font-size:12px;margin:23px 0 11px;letter-spacing:.33em}.role{font-size:13px;line-height:1.35}
+.icons{gap:30px;margin:25px auto 22px}.iconitem{width:100px;font-size:9px}.round{width:56px;height:56px;border-color:var(--gold);color:var(--gold);font-size:23px}
+.hero-actions{justify-content:center}.pill{font-size:11px;padding:12px 26px}.pill.orange{background:var(--gold)}
+.hero-photo{position:relative;filter:saturate(.88) contrast(.98)}
+.hero-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ivory) 0%,transparent 18%,transparent 100%)}
+.human{left:47%;top:130px;width:210px;font-size:32px;color:var(--b)}.human em{color:var(--gold)}
+.botanical{width:165px;height:420px}.botanical.left{top:30px}.botanical.right{top:20px}.leaf{width:42px;height:120px;background:var(--b)}.leaf:nth-child(2),.leaf:nth-child(4){background:linear-gradient(90deg,#ad6d20,#edc97f)}
+
+.about{height:auto;min-height:410px;grid-template-columns:28% 44% 28%;padding:42px 0 30px;background:#fff;position:relative}
+.about:before{content:"";position:absolute;left:-70px;top:35px;width:180px;height:300px;border:2px solid var(--gold);border-radius:50%;opacity:.28}
+.about-photo{margin:0 0 0 35px;border-radius:0 70px 0 70px;box-shadow:0 12px 30px #062f5c1c}
+.about-copy{padding:45px 38px 60px}.about-title{top:-3px;font-size:48px}.about-copy h3{font-size:25px;color:var(--gold);margin-bottom:15px}.about-copy p{font-size:12px;line-height:1.55;margin:8px 0}
+.expert{margin:25px 35px 15px 0;padding:22px;border:1px solid #d8a34f66;border-radius:22px;background:var(--cream);box-shadow:none}.expert h3{font-size:25px}.expert-row{margin:12px 0}.expert-row .round{background:var(--b);color:var(--gold);border:1px solid var(--gold)}
+.chips{bottom:4px;left:-20px;right:0;gap:10px}.chip{border:1px solid #d8a34f44;box-shadow:none;border-radius:18px;padding:7px 10px}.chip .round{background:var(--gold)}
+
+.services{padding:38px 5% 30px;background:linear-gradient(180deg,#fff,#fffaf3)}
+.section-title{font-size:48px}.subtitle{font-size:9px;margin:6px 0 24px;color:#315577}
+.service-grid{gap:18px}.card{min-height:210px;padding:22px 20px;border:1px solid #d8a34f55;border-radius:22px;box-shadow:0 8px 25px #062f5c0c;background:#fff}.card h3{font-size:23px;margin-bottom:12px}.card h3 .round{width:45px;height:45px}.card ul{font-size:11px;line-height:1.5}.card li:before{color:var(--gold)}
+.custom{height:auto;min-height:135px;margin-top:22px;border:1px solid #d8a34f55;border-radius:30px;background:var(--cream);padding:22px 7%;grid-template-columns:34% 66%}.custom h3{font-size:30px;padding-left:25px;border-right:1px solid var(--gold)}.custom div{padding-left:50px}.custom b{font-size:18px}.custom p{font-size:10px;line-height:1.4;margin:4px 0}.custom strong{font-size:11px;color:var(--o)}
+
+.audience{padding:35px 5% 38px;background:#fff;position:relative}.aud-grid{gap:14px;margin-top:18px}.aud{border:1px solid #d8a34f55;border-radius:22px;padding:12px;display:block;text-align:center;box-shadow:none;background:#fff}.aud .round{width:43px;height:43px;background:var(--b);color:var(--gold);border:1px solid var(--gold);margin:-31px auto 6px}.aud h3{font-size:20px}.aud .pic{height:105px;margin:8px 0;border-radius:14px}.aud p{font-size:9px;line-height:1.4}.all{height:auto;margin:20px 4% 0;padding:13px 25px;border:1px solid var(--gold);font-size:17px;border-radius:30px}
+
+footer{height:auto;min-height:190px;padding:32px 12% 18px;background:var(--b);overflow:hidden}
+footer:before,footer:after{content:"";position:absolute;width:230px;height:230px;border:2px solid var(--gold);border-radius:50%;opacity:.35}footer:before{left:-120px;bottom:-130px}footer:after{right:-120px;top:-120px}
+.foot{height:auto;min-height:100px;grid-template-columns:1.2fr 1fr 1fr;gap:30px}.contact h2{font-size:34px}.contact p,.coords{font-size:11px;line-height:1.7}.discover{font-size:23px}.discover img{width:76px;height:76px;border:5px solid #fff}.footlinks{font-size:8px;padding-top:10px;margin-top:10px}.legal{background:#fff;font-size:7px;line-height:1.45;padding:9px 15px}
+
+@media(max-width:1100px){.shell{min-width:0}.nav nav{display:none}.hero{height:auto;min-height:650px;grid-template-columns:1fr}.hero-copy{padding:60px 25px 35px}.hero-photo{min-height:320px}.human{display:none}.about{grid-template-columns:1fr}.about-photo{min-height:320px;margin:20px}.about-copy{padding:55px 30px 100px}.expert{margin:20px 30px}.chips{position:static;margin-top:15px}.service-grid{grid-template-columns:1fr 1fr}.aud-grid{grid-template-columns:1fr 1fr}.custom{grid-template-columns:1fr}.custom h3{border-right:0;border-bottom:1px solid var(--gold);padding:0 0 15px}.custom div{padding:15px 0 0}.foot{grid-template-columns:1fr}}
+@media(max-width:650px){.hero h1{font-size:58px}.hero h1 span{font-size:42px}.service-grid,.aud-grid{grid-template-columns:1fr}.chips{grid-template-columns:1fr 1fr}.icons{gap:10px;flex-wrap:wrap}.topbtn{font-size:9px}.mini-logo{min-width:155px}footer{padding:30px}.foot{grid-template-columns:1fr}}
 </style></head><body><div class="shell">
 <header><div class="nav"><a class="mini-logo" href="#accueil"><b>Essentiel’Gest</b><i>By Gwenn</i><small>VOTRE SÉRÉNITÉ ADMINISTRATIVE</small></a><nav><a href="#accueil">Accueil</a><a href="#apropos">À propos</a><a href="#prestations">Prestations</a><a href="#pourqui">Pour qui ?</a><a href="#pourquoi">Pourquoi moi ?</a><a href="#avis">Avis</a><a href="#contact">Contact</a></nav><a class="topbtn" href="mailto:essentielgest@outlook.com?subject=Demande%20de%20devis">✉ &nbsp; Demander un devis</a></div></header>
 <section class="hero" id="accueil"><div class="botanical left"><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i></div><div class="hero-copy"><h1>Essentiel’Gest<span>By Gwenn</span></h1><div class="tag">VOTRE SÉRÉNITÉ ADMINISTRATIVE</div><div class="role">ASSISTANTE ADMINISTRATIVE & RH<br>POUR LES PROFESSIONNELS</div><div class="icons"><div class="iconitem"><span class="round">▤</span>GESTION<br>ADMINISTRATIVE</div><div class="iconitem"><span class="round">♙</span>SUPPORT<br>RH</div><div class="iconitem"><span class="round">⚙</span>ORGANISATION<br>& SUIVI</div><div class="iconitem"><span class="round">◇</span>UN SOUTIEN<br>SUR-MESURE</div></div><div class="hero-actions"><a class="pill" href="#prestations">Découvrir mes prestations &nbsp;→</a><a class="pill orange" href="mailto:essentielgest@outlook.com?subject=Demande%20de%20devis">✉ &nbsp; Demander un devis</a></div></div><div class="human">L’humain<br>au cœur<br>de votre organisation <em>♡</em></div><div class="hero-photo"></div><div class="botanical right"><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i></div></section>
