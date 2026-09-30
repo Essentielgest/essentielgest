@@ -1,947 +1,114 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <!--
-    =========================================================
-    Essentiel’Gest — Site vitrine (1 page)
-    - HTML : structure + contenus
-    - CSS  : design (luxe + chaleureux + zen)
-    - JS   : petits comportements (reveal au scroll, mailto)
-
-    Notes :
-    - Le site est pensé pour être déposé tel quel en "index.html".
-    - Compatible GitHub Pages (aucune dépendance externe hors Google Fonts).
-    =========================================================
-  -->
-
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Essentiel’Gest By Gwenn | Votre sérénité administrative</title>
-  <meta name="description" content="Essentiel’Gest By Gwenn : assistance administrative indépendante. Devis, facturation, relances, organisation, préparation comptable." />
-
-  <!-- Pré-connexion pour accélérer le chargement des polices Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- Polices :
-       - Nunito : texte (lisible, moderne)
-       - Playfair Display : titres (premium, élégants)
-  -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@600;800;900&display=swap" rel="stylesheet">
-
-  <style>
-    /*
-      =========================================================
-      1) Variables de design (couleurs, ombres, rayons)
-      =========================================================
-    */
-    :root{
-      /* Brand (luxe) */
-      --night:#070c1f;     /* bleu nuit */
-      --night2:#0b1630;    /* variante bleu nuit */
-      --gold:#d4af37;      /* doré */
-      --gold2:#f6df8f;     /* doré clair */
-
-      /* Warm (chaleureux) */
-      --peach:#f6c1a6;
-      --terracotta:#e07a5f;
-      --sage:#8aa399;
-
-      /* UI */
-      --text:#ffffff;
-      --textSoft: rgba(255,255,255,.88);
-      --textMute: rgba(255,255,255,.72);
-      --card: rgba(255,255,255,.07);
-      --card2: rgba(255,255,255,.05);
-      --border: rgba(246,223,143,.20);
-      --radius: 26px;
-      --shadow: 0 22px 60px rgba(0,0,0,.42);
-      --max: 1160px;
-    }
-
-    /* Reset léger */
-    *{ box-sizing:border-box; }
-
-    /* Défilement doux (si l’utilisateur ne préfère pas réduire les animations) */
-    html{ scroll-behavior:smooth; }
-
-    /*
-      =========================================================
-      2) Fond + layout global
-      =========================================================
-    */
-    body{
-      margin:0;
-      font-family:'Nunito',sans-serif;
-      color: var(--text);
-
-      /*
-        Fond en couches :
-        - 3 halos colorés (pêche, doré, sauge) pour la chaleur
-        - 1 dégradé sombre pour la base premium
-      */
-      background:
-        radial-gradient(900px 600px at 12% 0%, rgba(246,193,166,.26), transparent 55%),
-        radial-gradient(1050px 720px at 92% 8%, rgba(212,175,55,.22), transparent 58%),
-        radial-gradient(950px 650px at 62% 105%, rgba(138,163,153,.16), transparent 55%),
-        linear-gradient(180deg, var(--night) 0%, #050813 100%);
-
-      overflow-x:hidden; /* évite un scroll horizontal en cas d’effets de fond */
-    }
-
-    /* Conteneur principal */
-    .wrap{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:28px 18px 92px;
-      position:relative; /* nécessaire pour positionner les “blobs” */
-    }
-
-    /*
-      =========================================================
-      3) Blobs d’ambiance (zen)
-      - Position absolue
-      - Flou + opacité
-      - Animation très lente
-      =========================================================
-    */
-    .blob{
-      position:absolute;
-      filter: blur(32px);
-      opacity:.45;
-      pointer-events:none;
-      mix-blend-mode: screen;
-      animation: blobFloat 28s ease-in-out infinite;
-    }
-
-    .blob.a{
-      width:360px; height:360px;
-      left:-120px; top:140px;
-      background:radial-gradient(circle at 30% 30%, rgba(246,193,166,.75), rgba(246,193,166,0) 60%);
-    }
-
-    .blob.b{
-      width:420px; height:420px;
-      right:-160px; top:60px;
-      background:radial-gradient(circle at 60% 40%, rgba(246,223,143,.60), rgba(246,223,143,0) 62%);
-      animation-duration: 32s; /* légèrement différent pour éviter un mouvement synchronisé */
-    }
-
-    .blob.c{
-      width:420px; height:420px;
-      left:40%; bottom:-200px;
-      background:radial-gradient(circle at 40% 35%, rgba(138,163,153,.55), rgba(138,163,153,0) 62%);
-      animation-duration: 36s;
-    }
-
-    /* Animation zen, très légère */
-    @keyframes blobFloat{
-      0%   { transform:translateY(0)   translateX(0)  scale(1); }
-      50%  { transform:translateY(-10px) translateX(6px) scale(1.02); }
-      100% { transform:translateY(0)   translateX(0)  scale(1); }
-    }
-
-    /*
-      =========================================================
-      4) Barre de navigation (sticky)
-      =========================================================
-    */
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-
-      padding:14px 18px;
-      margin:10px auto 22px;
-
-      border:1px solid var(--border);
-      background: rgba(7,12,31,.58); /* verre fumé */
-      border-radius: 999px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 14px 36px rgba(0,0,0,.35);
-
-      position: sticky;
-      top: 12px;
-      z-index: 40;
-    }
-
-    .brand{ display:flex; align-items:center; gap:12px; }
-
-    /* Logo abstrait (pas encore le logo final, juste un “badge” de marque) */
-    .logo{
-      width:44px; height:44px;
-      border-radius: 16px;
-      background:
-        radial-gradient(18px 18px at 30% 25%, var(--gold2), rgba(246,223,143,0) 60%),
-        linear-gradient(135deg, rgba(246,193,166,.95), rgba(212,175,55,.65));
-      border:1px solid rgba(246,223,143,.55);
-      box-shadow: 0 14px 28px rgba(212,175,55,.18);
-      position:relative;
-      overflow:hidden;
-
-      /* “flottement” très doux */
-      animation: float 16s ease-in-out infinite;
-    }
-
-    /* “sheen” (reflet) très lent */
-    .logo:after{
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.45), rgba(255,255,255,0));
-      transform: rotate(25deg) translateX(-60%);
-      animation: sheen 14s ease-in-out infinite;
-    }
-
-    @keyframes sheen{
-      0%,35% { transform: rotate(25deg) translateX(-60%); opacity:0; }
-      50%    { opacity:.65; }
-      70%    { transform: rotate(25deg) translateX(60%); opacity:0; }
-      100%   { opacity:0; }
-    }
-
-    @keyframes float{
-      0%   { transform:translateY(0); }
-      50%  { transform:translateY(-12px); }
-      100% { transform:translateY(0); }
-    }
-
-    .brand h1{
-      margin:0;
-      font-family:'Playfair Display', serif;
-      font-weight:900;
-      letter-spacing:.3px;
-    }
-
-    .brand small{
-      display:block;
-      color: var(--gold2);
-      font-weight:900;
-      margin-top:2px;
-    }
-
-    .links{ display:flex; gap:8px; flex-wrap:wrap; }
-
-    .chip{
-      padding:10px 14px;
-      border-radius: 999px;
-      border:1px solid rgba(246,223,143,.18);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.92);
-      font-weight:900;
-      transition: transform .15s ease, background .15s ease, border .15s ease;
-      text-decoration:none;
-    }
-
-    /* Hover discret */
-    .chip:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.10);
-      border-color: rgba(246,223,143,.45);
-    }
-
-    /* Call-to-action (CTA) : plus lumineux, mais sans agressivité */
-    .chip.cta{
-      background: linear-gradient(135deg, rgba(246,223,143,.98), rgba(224,122,95,.44));
-      color:#1a1404;
-      border-color: rgba(246,223,143,.85);
-      box-shadow: 0 12px 26px rgba(212,175,55,.22);
-      position:relative;
-      overflow:hidden;
-    }
-
-    /* Reflet sur le CTA, très espacé (zen) */
-    .chip.cta:after{
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.55), rgba(255,255,255,0));
-      transform: rotate(18deg) translateX(-70%);
-      animation: ctaSheen 9s ease-in-out infinite;
-      pointer-events:none;
-    }
-
-    @keyframes ctaSheen{
-      0%,65% { opacity:0; transform: rotate(18deg) translateX(-70%); }
-      75%    { opacity:.45; }
-      90%    { opacity:0; transform: rotate(18deg) translateX(70%); }
-      100%   { opacity:0; }
-    }
-
-    /*
-      =========================================================
-      5) Cartes + hero
-      =========================================================
-    */
-    .hero{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 20px;
-      align-items: stretch;
-    }
-
-    @media (max-width: 980px){
-      .hero{ grid-template-columns:1fr; }
-    }
-
-    .card{
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, var(--card), var(--card2));
-      border:1px solid var(--border);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-
-    /* Lumière interne très douce (donne du relief sans être flashy) */
-    .card:before{
-      content:"";
-      position:absolute;
-      inset:-45%;
-      background:
-        radial-gradient(circle at 20% 0%, rgba(246,193,166,.20), transparent 38%),
-        radial-gradient(circle at 85% 18%, rgba(246,223,143,.18), transparent 40%);
-      transform: rotate(10deg);
-      pointer-events:none;
-    }
-
-    .hero-left{ padding: 42px 38px 34px; }
-
-    /* Petit label (kicker) au-dessus du titre */
-    .kicker{
-      display:inline-flex;
-      gap:10px;
-      align-items:center;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border:1px solid rgba(246,223,143,.40);
-      background: rgba(224,122,95,.14);
-      color: rgba(246,223,143,.98);
-      font-weight:900;
-      letter-spacing:.35px;
-      font-size: 12px;
-    }
-
-    .hero h2{
-      margin: 16px 0 12px;
-      font-family:'Playfair Display', serif;
-      font-size: clamp(32px, 4.2vw, 48px);
-      line-height: 1.08;
-      letter-spacing:.2px;
-      color: rgba(246,223,143,.92);
-    }
-
-    .hero p{
-      margin:0 0 16px;
-      color: var(--textSoft);
-      font-size: 17px;
-      max-width: 62ch;
-    }
-
-    /* Blocs “stats” : en mode zen, pas d’animation de compteur (texte stable) */
-    .stats{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    @media (max-width: 820px){
-      .stats{ grid-template-columns:1fr; }
-    }
-
-    .stat{
-      padding: 14px 14px;
-      border-radius: 18px;
-      background: rgba(7,12,31,.38);
-      border:1px solid rgba(246,223,143,.12);
-    }
-
-    .stat .num{
-      font-weight:900;
-      font-size: 22px;
-      color: rgba(246,223,143,.90);
-      line-height:1;
-    }
-
-    .stat .lbl{
-      color: var(--textMute);
-      font-weight:800;
-      font-size: 12px;
-      margin-top:6px;
-    }
-
-    /* Liste de bénéfices (bullets) */
-    .bullets{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    @media (max-width: 520px){
-      .bullets{ grid-template-columns:1fr; }
-    }
-
-    .bullet{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      padding: 14px 14px;
-      border-radius: 18px;
-      background: rgba(7,12,31,.42);
-      border:1px solid rgba(246,223,143,.14);
-      transition: transform .22s ease, background .22s ease, border .22s ease;
-    }
-
-    .bullet:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.05);
-      border-color: rgba(246,223,143,.22);
-    }
-
-    .tick{
-      width: 24px; height: 24px;
-      border-radius: 9px;
-      background: rgba(138,163,153,.22);
-      border:1px solid rgba(138,163,153,.45);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#d7f0e6;
-      font-weight:900;
-      flex: 0 0 auto;
-    }
-
-    .bullet strong{ display:block; font-size: 13px; color: rgba(255,255,255,.92); }
-    .bullet span{ color: var(--textMute); font-size: 13px; }
-
-    /* Boutons */
-    .hero-actions{ display:flex; gap: 12px; flex-wrap:wrap; margin-top: 18px; }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding: 14px 18px;
-      border-radius: 999px;
-      font-weight:900;
-      letter-spacing:.2px;
-      border:1px solid rgba(246,223,143,.22);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.95);
-      box-shadow: 0 10px 26px rgba(0,0,0,.30);
-      transition: transform .15s ease, background .15s ease, border .15s ease, box-shadow .15s ease;
-      position:relative;
-      overflow:hidden;
-      text-decoration:none;
-      cursor:pointer;
-    }
-
-    .btn:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.08);
-      border-color: rgba(246,223,143,.35);
-      box-shadow: 0 12px 26px rgba(0,0,0,.28);
-    }
-
-    /* Bouton principal (doré + touche terracotta) */
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(246,223,143,.98), rgba(224,122,95,.42));
-      color:#1a1404;
-      border-color: rgba(246,223,143,.85);
-      box-shadow: 0 14px 34px rgba(212,175,55,.28);
-    }
-
-    /* Reflet très doux sur le bouton principal */
-    .btn.primary:after{
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.55), rgba(255,255,255,0));
-      transform: rotate(18deg) translateX(-70%);
-      animation: ctaSheen 9s ease-in-out infinite;
-      pointer-events:none;
-    }
-
-    /* Colonne droite (panneaux) */
-    .hero-right{ padding: 22px; display:flex; flex-direction:column; gap: 14px; }
-
-    .panel{
-      padding: 18px 18px;
-      border-radius: 20px;
-      background: rgba(7,12,31,.55);
-      border:1px solid rgba(246,223,143,.16);
-    }
-
-    .panel h3{
-      margin:0 0 10px;
-      font-family:'Playfair Display', serif;
-      font-size: 18px;
-      color: rgba(255,255,255,.92);
-    }
-
-    .meta{ display:grid; grid-template-columns: 1fr; gap: 10px; color: rgba(255,255,255,.90); font-size: 14px; }
-
-    .meta label{
-      display:block;
-      color: var(--gold2);
-      font-weight:900;
-      font-size: 12px;
-      margin-bottom:4px;
-    }
-
-    .meta .row{
-      padding: 12px 14px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.05);
-      border:1px solid rgba(246,223,143,.12);
-    }
-
-    /*
-      =========================================================
-      6) Sections (services, offres, contact, RGPD)
-      =========================================================
-    */
-    .section{ margin-top: 26px; padding: 28px 24px; }
-
-    .section h3{
-      margin:0 0 12px;
-      font-family:'Playfair Display', serif;
-      font-size: 26px;
-      color: var(--gold2);
-    }
-
-    .section p{ margin: 0 0 14px; color: var(--textSoft); }
-
-    .grid3{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
-
-    @media (max-width: 980px){
-      .grid3{ grid-template-columns:1fr; }
-    }
-
-    .tile{
-      padding: 18px 18px;
-      border-radius: 20px;
-      background: rgba(7,12,31,.55);
-      border:1px solid rgba(246,223,143,.16);
-      transition: transform .16s ease;
-    }
-
-    .tile:hover{ transform: translateY(-1px); }
-
-    .tile h4{ margin:0 0 8px; font-size: 18px; color: rgba(255,255,255,.92); }
-    .tile ul{ margin:0; padding-left: 18px; color: rgba(255,255,255,.86); }
-    .tile li{ margin: 6px 0; }
-
-    /* Cartes d’offres */
-    .pricing{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
-
-    @media (max-width: 1100px){
-      .pricing{ grid-template-columns:1fr; }
-    }
-
-    .price-card{
-      padding: 20px 18px;
-      border-radius: 24px;
-      background: rgba(7,12,31,.55);
-      border:1px solid rgba(246,223,143,.16);
-      position:relative;
-      overflow:hidden;
-    }
-
-    .price-card:before{
-      content:"";
-      position:absolute;
-      inset:-50%;
-      background: radial-gradient(circle at top right, rgba(224,122,95,.18), transparent 40%);
-      transform: rotate(18deg);
-      pointer-events:none;
-    }
-
-    .badge{
-      position:absolute;
-      top: 14px; right: 14px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(224,122,95,.18);
-      border:1px solid rgba(246,223,143,.20);
-      color: rgba(246,223,143,.98);
-      font-weight:900;
-      font-size: 11px;
-    }
-
-    .price-card h4{ margin:0 0 8px; font-size: 20px; color: rgba(255,255,255,.94); }
-
-    .price{
-      font-size: 34px;
-      font-weight: 1000;
-      letter-spacing:.2px;
-      margin: 6px 0 10px;
-      color: var(--gold2);
-    }
-
-    .price small{ font-size: 12px; color: rgba(255,255,255,.76); font-weight:800; }
-    .price-card ul{ margin:0; padding-left: 18px; color: rgba(255,255,255,.88); }
-    .price-card li{ margin:6px 0; }
-    .price-card .btn{ margin-top: 12px; width: 100%; }
-
-    /* Formulaire de contact */
-    .contact{ display:grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items:start; }
-
-    @media (max-width: 980px){
-      .contact{ grid-template-columns:1fr; }
-    }
-
-    .form{ display:grid; gap: 10px; }
-
-    input, textarea{
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(246,223,143,.20);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.95);
-      outline:none;
-      font-family: inherit;
-    }
-
-    textarea{ min-height: 120px; resize: vertical; }
-
-    input::placeholder, textarea::placeholder{ color: rgba(255,255,255,.55); }
-
-    .foot{
-      margin-top: 18px;
-      color: rgba(255,255,255,.70);
-      font-size: 12px;
-      text-align:center;
-    }
-
-    /*
-      =========================================================
-      7) Reveal au scroll
-      - Les sections commencent invisibles
-      - IntersectionObserver ajoute .on quand l’élément entre dans la vue
-      =========================================================
-    */
-    .reveal{
-      opacity:0;
-      transform: translateY(8px);
-      transition: opacity 1.2s ease, transform 1.2s ease;
-    }
-
-    .reveal.on{
-      opacity:1;
-      transform:none;
-    }
-
-    /*
-      Accessibilité : si l’utilisateur préfère réduire les animations,
-      on désactive la plupart des animations.
-    */
-    @media (prefers-reduced-motion: reduce){
-      html{ scroll-behavior:auto; }
-      .logo,.blob,.chip.cta:after,.btn.primary:after{ animation:none; }
-      .reveal{ opacity:1; transform:none; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Essentiel’Gest By Gwenn | Votre sérénité administrative</title>
+<meta name="description" content="Assistance administrative & RH pour les professionnels : gestion administrative, organisation, préparation comptable et appui RH. Prestations sur devis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700&family=Parisienne&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#06223d;--navy2:#0a3152;--gold:#c88a2b;--gold2:#e5b35d;--cream:#fbf6ee;--ink:#102b45;--muted:#526579;--white:#fff;--line:#ead9bd;--shadow:0 14px 40px rgba(18,43,69,.09);--max:1240px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--ink);font-family:Montserrat,Arial,sans-serif;line-height:1.55}a{color:inherit;text-decoration:none}.wrap{max-width:var(--max);margin:auto;padding:0 24px}
+h1,h2,h3,h4{font-family:"Cormorant Garamond",serif;margin-top:0}.script{font-family:Parisienne,cursive;color:var(--gold);font-weight:400}.eyebrow{font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;font-weight:700}.goldline{width:58px;height:2px;background:var(--gold);margin:10px auto 18px}
+.botanical{position:absolute;width:170px;height:260px;pointer-events:none;opacity:.95}
+.botanical:before,.botanical:after{content:"";position:absolute;border-radius:100% 0 100% 0;transform:rotate(35deg)}
+.botanical:before{width:46px;height:110px;background:var(--navy);left:40px;top:30px;box-shadow:45px 52px 0 -5px var(--gold2),-18px 92px 0 -7px var(--gold2),55px 135px 0 -8px var(--navy)}
+.botanical:after{width:2px;height:220px;background:var(--gold);left:78px;top:20px;transform:rotate(-20deg);border-radius:2px}
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid #f1e8da;backdrop-filter:blur(10px)}
+.nav{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:28px}.brand{min-width:245px}.brand strong{font:700 1.75rem "Cormorant Garamond",serif}.brand .script{font-size:1.4rem;margin-left:8px}.tag{font-size:.58rem;letter-spacing:.23em;text-transform:uppercase}.menu{display:flex;align-items:center;gap:26px;font-size:.83rem;font-weight:600}.menu a:hover{color:var(--gold)}.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:8px;padding:13px 20px;font-weight:700;font-size:.86rem;border:1px solid transparent;transition:.2s}.btn.gold{background:linear-gradient(135deg,var(--gold),#dca34b);color:#fff}.btn.navy{background:var(--navy);color:#fff;border-radius:999px}.btn.outline{border-color:var(--gold);color:var(--gold);background:#fff}.btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(0,0,0,.12)}
+.hero{position:relative;overflow:hidden;background:linear-gradient(90deg,#fff 0%,#fff 48%,rgba(251,246,238,.72) 68%,rgba(234,217,189,.38) 100%);border-bottom:1px solid #f2e7d7}.hero:after{content:"";position:absolute;right:4%;top:12%;width:38%;height:72%;border-radius:32px;background:linear-gradient(145deg,#f6efe5,#d8c5a9);box-shadow:inset 0 0 70px rgba(255,255,255,.8);opacity:.72}.desk{position:absolute;z-index:1;right:8%;bottom:8%;width:30%;height:48%;border-radius:16px;background:linear-gradient(160deg,#fff,#e9ddcc);box-shadow:0 25px 50px rgba(20,30,40,.12)}.desk:before{content:"";position:absolute;width:42%;height:55%;right:8%;top:-22%;background:var(--navy);border-radius:8px 8px 3px 3px;transform:skew(-8deg);box-shadow:0 8px 18px rgba(0,0,0,.2)}.desk:after{content:"";position:absolute;width:70px;height:70px;left:20%;top:10%;border:8px solid #fff;border-radius:50%;box-shadow:0 4px 10px rgba(0,0,0,.1)}
+.hero .botanical{left:-35px;bottom:-45px;z-index:2}.hero-content{position:relative;z-index:3;max-width:690px;padding:78px 0 72px;text-align:center}.hero h1{font-size:4.2rem;line-height:.92;margin:0;color:var(--navy)}.hero h1 .script{display:block;font-size:3rem;margin-top:8px}.hero .slogan{letter-spacing:.28em;font-size:.78rem;margin:20px 0 18px;text-transform:uppercase}.hero .mainline{font-weight:700;letter-spacing:.16em;text-transform:uppercase}.hero .hand{font:2.25rem Parisienne,cursive;color:var(--navy);margin:16px 0}.actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:22px}
+.section{padding:62px 0;position:relative}.section-title{text-align:center}.section-title h2{font-size:3rem;line-height:1;margin-bottom:0}.section-title p{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase}
+.services{background:#fff;overflow:hidden}.services .botanical{right:-40px;top:60px;transform:scaleX(-1)}.service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:34px}.service{background:#fff;border:1px solid #f1e9df;border-radius:16px;padding:28px 22px;box-shadow:var(--shadow)}.service h3{font-size:1.55rem;color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:8px}.service ul{list-style:none;padding:0;margin:0;font-size:.86rem}.service li{margin:9px 0;padding-left:23px;position:relative}.service li:before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:800}
+.alacarte{margin-top:26px;background:linear-gradient(90deg,#fbf2e4,#fff7eb);border-radius:24px;padding:28px 34px;display:grid;grid-template-columns:260px 1fr;gap:30px;align-items:center}.alacarte h3{font-size:2rem;margin:0}.alacarte p{margin:4px 0}.alacarte strong{color:var(--navy)}
+.audience{background:#fffaf4}.audience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.audience-card{background:#fff;padding:24px;border-radius:16px;box-shadow:var(--shadow);text-align:center}.audience-card h3{font-size:1.65rem;margin:5px 0}.roundicon{width:52px;height:52px;border-radius:50%;margin:auto;background:var(--gold);color:#fff;display:grid;place-items:center;font-size:1.35rem}
+.why{background:var(--navy);color:#fff;padding:38px 0}.why-grid{display:grid;grid-template-columns:1.5fr repeat(4,1fr);align-items:center}.why-intro{padding-right:30px}.why h2{font-size:2.4rem;margin-bottom:4px}.benefit{text-align:center;padding:10px 20px;border-left:1px solid rgba(229,179,93,.55);font-size:.82rem}.benefit .roundicon{background:transparent;border:2px solid var(--gold);color:var(--gold);margin-bottom:9px}
+.contact{overflow:hidden}.contact .botanical{right:-50px;bottom:-70px;transform:scaleX(-1)}.contact-box{text-align:center}.contact-box h2{font-size:3rem;margin-bottom:0}.contact-row{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin:22px 0;font-size:.88rem}.contact-row a{font-weight:600}.contact-form{max-width:780px;margin:28px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:12px}.contact-form textarea{grid-column:1/-1;min-height:120px}.contact-form button{grid-column:1/-1}.contact-form input,.contact-form textarea{padding:14px;border:1px solid #dfd4c4;border-radius:10px;font:inherit;color:var(--ink);background:#fff}
+footer{background:var(--navy);color:#fff;padding:34px 0 28px}.footer-top{display:flex;justify-content:space-between;gap:30px;align-items:flex-start}.footer-brand strong{font:700 2rem "Cormorant Garamond",serif}.footer-brand .script{display:block;font-size:1.6rem}.footer-links{display:flex;gap:16px;flex-wrap:wrap;font-size:.76rem}.legal{border-top:1px solid rgba(229,179,93,.55);margin-top:22px;padding-top:18px;font-size:.68rem;line-height:1.7;color:#e9edf1;text-align:center}.legal details{margin-top:10px}.legal summary{cursor:pointer;color:var(--gold2);font-weight:700}
+@media(max-width:980px){.menu{display:none}.service-grid{grid-template-columns:1fr 1fr}.why-grid{grid-template-columns:1fr 1fr}.why-intro{grid-column:1/-1;text-align:center;padding:0 0 20px}.hero:after,.desk{opacity:.25}.hero-content{max-width:100%}.alacarte{grid-template-columns:1fr}.audience-grid{grid-template-columns:1fr}.footer-top{flex-direction:column}}
+@media(max-width:620px){.wrap{padding:0 16px}.nav{min-height:68px}.brand strong{font-size:1.35rem}.brand .script{font-size:1.05rem}.nav>.btn{display:none}.hero-content{padding:58px 0}.hero h1{font-size:3rem}.hero h1 .script{font-size:2.25rem}.hero .hand{font-size:1.8rem}.service-grid{grid-template-columns:1fr}.why-grid{grid-template-columns:1fr}.benefit{border-left:0;border-top:1px solid rgba(229,179,93,.4)}.contact-form{grid-template-columns:1fr}.contact-form textarea,.contact-form button{grid-column:auto}.section{padding:48px 0}.section-title h2,.contact-box h2{font-size:2.45rem}}
+</style>
 </head>
-
 <body>
-  <div class="wrap">
-    <!-- Blobs de fond -->
-    <div class="blob a" aria-hidden="true"></div>
-    <div class="blob b" aria-hidden="true"></div>
-    <div class="blob c" aria-hidden="true"></div>
-
-    <!--
-      NAV sticky :
-      - Liens ancres vers les sections
-      - CTA "Demander un devis" pour l’action principale
-    -->
-    <header class="nav reveal">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <h1>Essentiel’Gest By Gwenn</h1>
-          <small>Votre sérénité administrative</small>
-        </div>
-      </div>
-
-      <nav class="links" aria-label="Navigation">
-        <a class="chip" href="#services">Services</a>
-        <a class="chip" href="#offres">À la carte</a>
-        <a class="chip" href="#contact">Contact</a>
-        <a class="chip cta" href="#contact">Demander un devis</a>
-      </nav>
-    </header>
-
-    <!-- HERO : promesse + bénéfices + CTA -->
-    <section class="hero reveal">
-      <div class="card hero-left">
-        <div class="kicker">🌿 Zen, premium et chaleureux</div>
-
-        <!-- Phrase principale (headline) -->
-        <h2>L’excellence administrative, au service de votre tranquillité.</h2>
-
-        <!-- Pitch (une phrase claire) -->
-        <p>
-          Devis, factures, relances, organisation, préparation comptable : Essentiel’Gest By Gwenn vous accompagne avec méthode et douceur,
-          pour que vous gardiez votre énergie sur votre activité.
-        </p>
-
-        <!--
-          "Stats" : indicateurs simples
-          En mode zen : pas d’animation, valeurs stables.
-        -->
-        <div class="stats" aria-label="Points forts">
-          <div class="stat">
-            <div class="num" data-count="48">48</div>
-            <div class="lbl">heures/mois rendues au dirigeant</div>
-          </div>
-          <div class="stat">
-            <div class="num" data-count="100">100</div>
-            <div class="lbl">% sur-mesure, selon vos besoins</div>
-          </div>
-        </div>
-
-        <!-- Bénéfices -->
-        <div class="bullets">
-          <div class="bullet"><div class="tick">✓</div><div><strong>Chaleur & écoute</strong><span>Un accompagnement humain et rassurant.</span></div></div>
-          <div class="bullet"><div class="tick">✓</div><div><strong>Organisation simple</strong><span>Des process clairs, sans jargon.</span></div></div>
-          <div class="bullet"><div class="tick">✓</div><div><strong>Relances maîtrisées</strong><span>Professionnel, ferme, toujours élégant.</span></div></div>
-          <div class="bullet"><div class="tick">✓</div><div><strong>Temps gagné</strong><span>Vous reprenez la main sur vos journées.</span></div></div>
-        </div>
-
-        <!-- CTA -->
-        <div class="hero-actions">
-          <a class="btn primary" href="#contact">📩 Demander un devis</a>
-          <a class="btn" href="#offres">💎 Découvrir les prestations</a>
-        </div>
-      </div>
-
-      <!-- Colonne droite : pour qui + ce qui est pris en charge -->
-      <aside class="card hero-right">
-        <div class="panel">
-          <h3>Pour qui</h3>
-          <div class="meta">
-            <div class="row"><label>TPE & artisans</label>Facturation, relances, suivi clients/fournisseurs</div>
-            <div class="row"><label>Indépendants</label>Organisation, administratif courant, tableaux</div>
-            <div class="row"><label>Professions libérales</label>Structuration, dossiers, préparation comptable</div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <h3>Prise en charge</h3>
-          <div class="meta">
-            <div class="row">Devis, factures, relances</div>
-            <div class="row">Classement, archivage, organisation</div>
-            <div class="row">Préparation comptable</div>
-            <div class="row">Outils et routines</div>
-          </div>
-        </div>
-      </aside>
-    </section>
-
-    <!-- SERVICES -->
-    <section id="services" class="card section reveal">
-      <h3>Services</h3>
-      <p>Des prestations premium, avec un vrai sens du détail. Du rythme, sans stress.</p>
-
-      <div class="grid3">
-        <div class="tile">
-          <h4>Gestion administrative</h4>
-          <ul>
-            <li>Devis, facturation, suivi</li>
-            <li>Relances clients</li>
-            <li>Dossiers, courriers, emails</li>
-          </ul>
-        </div>
-
-        <div class="tile">
-          <h4>Organisation & classement</h4>
-          <ul>
-            <li>Tri, archivage</li>
-            <li>Procédures simples</li>
-            <li>Tableaux de suivi</li>
-          </ul>
-        </div>
-
-        <div class="tile">
-          <h4>Préparation comptable</h4>
-          <ul>
-            <li>Collecte des pièces</li>
-            <li>Suivi dépenses/recettes</li>
-            <li>Transmission cabinet</li>
-          </ul>
-        </div>
-        <div class="tile">
-          <h4>Appui RH & organisation</h4>
-          <ul>
-            <li>Gestion et mise à jour des plannings</li>
-            <li>Suivi administratif des congés et absences</li>
-            <li>Appui au recrutement et suivi des candidatures</li>
-            <li>Préparation et organisation des réunions</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- OFFRES -->
-    <section id="offres" class="card section reveal">
-      <h3>Des prestations à la carte</h3>
-      <p>Parce que chaque professionnel a des besoins différents, Essentiel’Gest By Gwenn vous propose un accompagnement entièrement personnalisé.</p>
-
-      <div class="tile">
-        <p>Vous choisissez uniquement les missions dont vous avez besoin, de façon ponctuelle ou régulière :</p>
-        <ul>
-          <li>Gestion administrative courante</li>
-          <li>Création et suivi des devis et factures</li>
-          <li>Relances clients</li>
-          <li>Suivi des clients et fournisseurs</li>
-          <li>Classement et organisation des documents</li>
-          <li>Préparation des éléments comptables</li>
-          <li>Démarches et dossiers administratifs</li>
-          <li>Gestion et mise à jour des plannings</li>
-          <li>Suivi administratif des congés et absences</li>
-          <li>Appui au recrutement et suivi des candidatures</li>
-          <li>Préparation et organisation des réunions</li>
-          <li>Soutien administratif au quotidien</li>
-        </ul>
-        <p>Après un premier échange, je construis avec vous une solution adaptée à votre activité, à votre organisation et à vos priorités.</p>
-        <p><strong>Devis personnalisé, gratuit et sans engagement.</strong></p>
-        <a class="btn primary" href="#contact">Échangeons sur vos besoins</a>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="card section reveal">
-      <h3>Contact</h3>
-      <p>Expliquez-moi votre besoin et je vous réponds rapidement.</p>
-
-      <div class="contact">
-        <div class="tile">
-          <h4>Coordonnées</h4>
-          <ul style="list-style:none;padding-left:0;margin:0;color:rgba(255,255,255,.90)">
-            <li><strong>Entreprise :</strong> Essentiel’Gest By Gwenn</li>
-            <li><strong>Slogan :</strong> Votre sérénité administrative</li>
-            <li><strong>Email :</strong> essentielgest@outlook.com</li>
-            <li><strong>Téléphone :</strong> 07 70 80 91 14</li>
-          </ul>
-
-          <!-- Boutons rapides (mobile-friendly) -->
-          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
-            <a class="btn" href="tel:+33770809114">📞 Appeler</a>
-            <a class="btn" href="mailto:essentielgest@outlook.com">✉️ Écrire</a>
-          </div>
-        </div>
-
-        <!--
-          Formulaire :
-          - On ne stocke rien côté site
-          - Le bouton ouvre la messagerie du visiteur via mailto
-        -->
-        <form class="tile form" id="contactForm">
-          <input id="name" placeholder="Votre nom" required />
-          <input id="email" type="email" placeholder="Votre email" required />
-          <textarea id="msg" placeholder="Votre besoin"></textarea>
-          <button type="submit" class="btn primary">Envoyer la demande</button>
-          <div style="color: rgba(255,255,255,.70); font-size: 12px">
-            Le bouton ouvre votre messagerie avec un message pré-rempli (aucune donnée stockée sur le site).
-          </div>
-        </form>
-      </div>
-
-      <div class="foot">
-        © <span id="year"></span> Essentiel’Gest By Gwenn. Tous droits réservés.
-        • <a href="#rgpd" style="color: rgba(246,223,143,.95); text-decoration: underline;">Mentions RGPD</a>
-      </div>
-    </section>
-
-    <!-- RGPD -->
-    <section id="rgpd" class="card section reveal">
-      <h3>🔒 Mentions RGPD & protection des données</h3>
-      <p>La protection de vos données personnelles est une priorité pour Essentiel’Gest By Gwenn.</p>
-
-      <div class="tile">
-        <p><strong>Responsable du traitement :</strong> Essentiel’Gest By Gwenn</p>
-        <p><strong>Contact :</strong> essentielgest@outlook.com</p>
-        <p><strong>Données collectées :</strong> nom, email et message transmis via le formulaire de contact.</p>
-        <p><strong>Finalité :</strong> répondre à vos demandes, établir des devis et assurer le suivi commercial.</p>
-        <p><strong>Durée de conservation :</strong> 3 ans maximum à compter du dernier contact.</p>
-        <p><strong>Droits :</strong> vous disposez d’un droit d’accès, de rectification, d’opposition et de suppression de vos données conformément au RGPD.</p>
-        <p>Pour exercer vos droits, il vous suffit d’écrire à : <strong>essentielgest@outlook.com</strong></p>
-      </div>
-    </section>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#accueil"><strong>Essentiel’Gest</strong><span class="script">By Gwenn</span><div class="tag">Votre sérénité administrative</div></a>
+    <nav class="menu" aria-label="Navigation"><a href="#accueil">Accueil</a><a href="#prestations">Prestations</a><a href="#pourqui">Pour qui ?</a><a href="#pourquoi">Pourquoi moi ?</a><a href="#contact">Contact</a></nav>
+    <a class="btn gold" href="#contact">✉ Demander un devis</a>
   </div>
+</header>
 
-  <script>
-    /*
-      =========================================================
-      JavaScript minimal (zen)
-      - Année automatique dans le footer
-      - Reveal au scroll via IntersectionObserver
-      - Formulaire de contact : ouverture mailto pré-rempli
-      =========================================================
-    */
+<main>
+<section class="hero" id="accueil">
+  <div class="botanical" aria-hidden="true"></div><div class="desk" aria-hidden="true"></div>
+  <div class="wrap"><div class="hero-content">
+    <h1>Essentiel’Gest <span class="script">By Gwenn</span></h1>
+    <div class="slogan">Votre sérénité administrative</div>
+    <div class="mainline">Assistance administrative & RH<br>pour les professionnels</div>
+    <div class="hand">L’humain au cœur de votre organisation ♡</div>
+    <div class="actions"><a class="btn navy" href="#prestations">Découvrir mes prestations →</a><a class="btn gold" href="#contact">✉ Demander un devis</a></div>
+  </div></div>
+</section>
 
-    // 1) Année automatique
-    document.getElementById('year').textContent = new Date().getFullYear();
+<section class="section services" id="prestations">
+<div class="botanical" aria-hidden="true"></div>
+<div class="wrap">
+  <div class="section-title"><h2>Mes prestations</h2><div class="goldline"></div><p>Un soutien administratif et RH adapté à vos besoins</p></div>
+  <div class="service-grid">
+    <article class="service"><h3>Gestion administrative</h3><ul><li>Devis, facturation et suivi</li><li>Relances clients</li><li>Dossiers, courriers et e-mails</li><li>Suivi clients et fournisseurs</li><li>Démarches et dossiers administratifs</li><li>Soutien administratif au quotidien</li></ul></article>
+    <article class="service"><h3>Appui RH & organisation</h3><ul><li>Gestion et mise à jour des plannings</li><li>Suivi administratif des congés et absences</li><li>Appui au recrutement</li><li>Suivi des candidatures</li><li>Préparation et organisation des réunions</li><li>Autres missions RH sur demande</li></ul></article>
+    <article class="service"><h3>Préparation comptable</h3><ul><li>Collecte des pièces</li><li>Suivi des dépenses et recettes</li><li>Préparation des éléments comptables</li><li>Transmission au cabinet comptable</li><li>Suivi des échéances</li></ul></article>
+    <article class="service"><h3>Organisation & classement</h3><ul><li>Tri et archivage</li><li>Classement et organisation des documents</li><li>Mise en place de procédures simples</li><li>Tableaux de suivi</li><li>Outils et routines d’organisation</li></ul></article>
+  </div>
+  <div class="alacarte"><h3>Des prestations<br>à la carte</h3><div><h4>Un accompagnement adapté à votre organisation</h4><p>Chaque professionnel a des besoins différents. Vous choisissez uniquement les missions dont vous avez besoin, de façon ponctuelle ou régulière.</p><p>Après un premier échange, je construis avec vous une solution adaptée à votre activité, votre organisation et vos priorités.</p><p><strong>Prestations sur devis – devis personnalisé, gratuit et sans engagement.</strong></p></div></div>
+</div>
+</section>
 
-    // 2) Reveal au scroll (effet doux)
-    // IntersectionObserver est plus performant qu’un "onscroll" classique.
-    const revealEls = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('on');
-            io.unobserve(entry.target); // on stoppe l’observation une fois révélé
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
+<section class="section audience" id="pourqui"><div class="wrap">
+  <div class="section-title"><h2>Pour qui ?</h2><div class="goldline"></div><p>J’accompagne les professionnels de tous secteurs</p></div>
+  <div class="audience-grid">
+    <article class="audience-card"><div class="roundicon">⌂</div><h3>TPE & Artisans</h3><p>Pour vous aider à gérer votre administratif et vous concentrer sur votre cœur de métier.</p></article>
+    <article class="audience-card"><div class="roundicon">♙</div><h3>Indépendants</h3><p>Un soutien sur-mesure pour faciliter votre organisation au quotidien.</p></article>
+    <article class="audience-card"><div class="roundicon">♧</div><h3>Professions libérales</h3><p>Un accompagnement adapté à vos besoins administratifs et RH, en toute confidentialité.</p></article>
+  </div>
+</div></section>
 
-    revealEls.forEach((el) => io.observe(el));
+<section class="why" id="pourquoi"><div class="wrap why-grid">
+  <div class="why-intro"><h2>Pourquoi moi ?</h2><p>Une combinaison de rigueur, d’organisation et d’écoute pour vous offrir un accompagnement fiable et humain.</p></div>
+  <div class="benefit"><div class="roundicon">❧</div>Un accompagnement personnalisé</div>
+  <div class="benefit"><div class="roundicon">◷</div>Un gain de temps au quotidien</div>
+  <div class="benefit"><div class="roundicon">♡</div>Une relation de confiance</div>
+  <div class="benefit"><div class="roundicon">▥</div>Une expérience polyvalente</div>
+</div></section>
 
-    // 3) Mode zen : si des éléments possèdent data-count, on affiche simplement la valeur (pas d’animation).
-    const counters = document.querySelectorAll('[data-count]');
-    counters.forEach((c) => {
-      const v = c.getAttribute('data-count');
-      if (v) c.textContent = v;
-    });
+<section class="section contact" id="contact"><div class="botanical" aria-hidden="true"></div><div class="wrap contact-box">
+  <h2>Contactez-moi</h2><div class="goldline"></div><p>Une question ? Un besoin ? Parlons de votre projet !<br>Je vous réponds rapidement.</p>
+  <div class="contact-row"><a href="tel:+33770809114">☎ 07 70 80 91 14</a><a href="mailto:essentielgest@outlook.com">✉ essentielgest@outlook.com</a><span>◎ www.essentielgest-by-gwenn.fr</span></div>
+  <a class="btn gold" href="mailto:essentielgest@outlook.com?subject=Demande%20de%20devis%20-%20Essentiel%27Gest%20By%20Gwenn">✉ Demander un devis</a>
+  <form class="contact-form" id="contactForm">
+    <input id="name" placeholder="Votre nom" required><input id="email" type="email" placeholder="Votre e-mail" required>
+    <textarea id="msg" placeholder="Expliquez-moi votre besoin"></textarea><button class="btn navy" type="submit">Envoyer la demande</button>
+  </form>
+</div></section>
+</main>
 
-    // 4) Formulaire -> mailto
-    // Important : mailto dépend du client mail du visiteur. C’est parfait pour un site vitrine simple.
-    const DEST = 'essentielgest@outlook.com';
-    const form = document.getElementById('contactForm');
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      // On récupère les champs en "safe trim".
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const msg = document.getElementById('msg').value.trim();
-
-      // Sujet + corps encodés pour fonctionner dans une URL.
-      const subject = encodeURIComponent("Demande d'information / devis - Essentiel’Gest By Gwenn");
-
-      const body = encodeURIComponent(
-        `Bonjour Gwenn,\n\n` +
-        `Je vous contacte via votre site Essentiel’Gest By Gwenn.\n\n` +
-        `Nom : ${name}\n` +
-        `Email : ${email}\n\n` +
-        `Besoin :\n${msg}\n\n` +
-        `Merci et à bientôt.\n`
-      );
-
-      // Redirection vers la messagerie.
-      window.location.href = `mailto:${DEST}?subject=${subject}&body=${body}`;
-    });
-  </script>
-</body>
-</html>
+<footer><div class="wrap">
+  <div class="footer-top"><div class="footer-brand"><strong>Essentiel’Gest</strong><span class="script">By Gwenn</span><div class="tag">Votre sérénité administrative</div></div>
+  <nav class="footer-links"><a href="#accueil">Accueil</a><a href="#prestations">Prestations</a><a href="#pourqui">Pour qui ?</a><a href="#pourquoi">Pourquoi moi ?</a><a href="#contact">Contact</a><a href="#mentions">Mentions légales</a></nav></div>
+  <div class="legal" id="mentions">
+    <strong>Bénéficiaire d’un CAPE n° 16141 jusqu’au 30/09/2027 maximum – Espace des Entrepreneurs, 4 rue des Buisses 59800 Lille</strong><br>
+    SIRET : 418 541 553 000 32 – TVA intracommunautaire : FR 23 418 541 553 – Code NAF : 8899B
+    <details><summary>Mentions légales & protection des données</summary>
+      <p>Directrice de publication : Gwennaëlle Deroubaix. Coordonnées commerciales : Essentiel’Gest By Gwenn – 07 70 80 91 14 – essentielgest@outlook.com. Hébergement : GitHub Pages, service de GitHub, Inc.</p>
+      <p>Responsable du traitement : Essentiel’Gest By Gwenn. Les données saisies dans le formulaire ne sont pas stockées sur ce site : le bouton ouvre votre messagerie. Les informations transmises par e-mail sont utilisées pour répondre à vos demandes, établir des devis et assurer le suivi commercial. Pour exercer vos droits d’accès, de rectification, d’opposition ou de suppression : essentielgest@outlook.com.</p>
+    </details>
+    <div>© <span id="year"></span> Essentiel’Gest By Gwenn. Tous droits réservés.</div>
+  </div>
+</div></footer>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+document.getElementById('contactForm').addEventListener('submit',function(e){e.preventDefault();const n=document.getElementById('name').value.trim(),m=document.getElementById('email').value.trim(),b=document.getElementById('msg').value.trim();const subject=encodeURIComponent("Demande d'information / devis - Essentiel’Gest By Gwenn");const body=encodeURIComponent("Bonjour Gwenn,\n\nNom : "+n+"\nEmail : "+m+"\n\nBesoin :\n"+b+"\n\nMerci.");window.location.href="mailto:essentielgest@outlook.com?subject="+subject+"&body="+body;});
+</script>
+</body></html>
