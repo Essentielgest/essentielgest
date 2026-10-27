@@ -59,37 +59,21 @@ footer{background:var(--navy);color:#fff;padding:14px 18%}.legal{background:#fff
 @media(max-width:600px){.aud{grid-template-rows:34px 62px}.aud .pic{display:block}.gar{background-image:url("https://bookar-multitenant-1.lon1.cdn.digitaloceanspaces.com/bookar-multitenant-1/media/doms/post/garage_image.jpg")!important}.hero h1{font-size:56px}.hero h1 span{font-size:41px}.icons{gap:10px;flex-wrap:wrap}.service-grid,.aud-grid{grid-template-columns:1fr}.quote{font-size:9px;padding:8px}.brand strong{font-size:22px}}
 
 
-/* Présentation élégante des informations complémentaires */
-.service-grid details {
-  margin-top: 16px;
-  padding: 12px 14px;
-  background: #f5f8fc;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-}
 
-.service-grid details summary {
-  color: #b8860b;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  list-style-position: inside;
-}
-
-.service-grid details summary:hover {
-  color: #8b6508;
-}
-
-.service-grid details p {
-  color: #243b53;
-  font-size: 14px;
-  line-height: 1.6;
-  margin: 12px 0 0;
-}
-
-.service-grid details p strong {
-  color: #102a43;
-}
+/* Cartes de prestations : boutons homogènes et détails accessibles */
+.service-grid .card{display:flex;flex-direction:column;min-width:0}
+.service-grid .card ul{margin-bottom:16px}
+.service-grid .service-details{margin-top:auto;padding:0;background:transparent;border:0;border-radius:0}
+.service-grid .service-details summary{display:table;margin:0 auto;padding:7px 20px;border:1px solid #e8c69c;border-radius:999px;background:#fff8f0;color:#092b50;font-size:14px;font-weight:700;line-height:1.35;cursor:pointer;list-style:none;text-align:center;transition:background .2s,color .2s}
+.service-grid .service-details summary::-webkit-details-marker{display:none}
+.service-grid .service-details summary::marker{content:''}
+.service-grid .service-details summary:hover,.service-grid .service-details summary:focus-visible{background:#fff0da;color:#9b6200}
+.service-grid .service-details summary:focus-visible{outline:2px solid #bd850d;outline-offset:3px}
+.service-grid .service-details[open] summary{margin-bottom:12px}
+.service-grid .service-details[open] summary span{display:inline-block;transform:rotate(90deg)}
+.service-grid .service-details-content{padding:12px 14px;background:#f5f8fc;border:1px solid #e2e8f0;border-radius:10px}
+.service-grid .service-details-content p{font-size:14px;line-height:1.55;color:#243b53;margin:0 0 10px}
+.service-grid .service-details-content p:last-child{margin-bottom:0}
 </style>
 </head>
 <body><div class="page">
@@ -97,45 +81,37 @@ footer{background:var(--navy);color:#fff;padding:14px 18%}.legal{background:#fff
 <section class="hero" id="accueil"><div class="hero-copy"><h1>Essentiel’Gest<span>By Gwenn</span></h1><div class="tag">VOTRE SÉRÉNITÉ ADMINISTRATIVE</div><div class="role">ASSISTANTE ADMINISTRATIVE & RH<br>POUR LES PROFESSIONNELS</div><div class="icons"><div class="icon"><span class="circle">▤</span>GESTION<br>ADMINISTRATIVE</div><div class="icon"><span class="circle">♙</span>SUPPORT<br>RH</div><div class="icon"><span class="circle">⚙</span>ORGANISATION<br>& SUIVI</div><div class="icon"><span class="circle">◇</span>UN SOUTIEN<br>SUR-MESURE</div></div><div class="actions"><a class="btn" href="#prestations">Découvrir mes prestations →</a><a class="btn orange" href="devis.html">✉ Demander un devis</a></div></div><div class="human">L’humain<br>au cœur<br>de votre organisation <span>♡</span></div><div class="hero-photo"></div></section>
 <section class="about" id="apropos"><div class="about-photo" role="img" aria-label="Portrait de Gwenn, fondatrice d’Essentiel’Gest By Gwenn"></div><div class="about-copy"><h2 class="title">Qui suis-je ?</h2><h3>Une professionnelle engagée à vos côtés <span>pour vous simplifier le quotidien.</span></h3><p>Forte de <b>plus de 20 ans</b> d’expérience dans l’administratif, la relation client et la gestion, j’accompagne les professionnels dans l’organisation, le suivi et la gestion de leurs tâches administratives et RH.</p></div><aside class="expert"><h3>Mon expertise professionnelle</h3><div class="expert-row"><span class="circle">▥</span><b>Banque & assurance</b></div><div class="expert-row"><span class="circle">▤</span><b>Recouvrement</b></div><div class="expert-row"><span class="circle">♙</span><b>Relation client & commerce</b></div><div class="expert-row"><span class="circle">⚙</span><b>Gestion & organisation</b></div></aside></section>
 <section class="services" id="prestations"><h2 class="title">Mes prestations</h2><div class="subtitle">UN SOUTIEN ADMINISTRATIF ET RH ADAPTÉ À VOS BESOINS</div><div class="service-grid">
-<article class="card"><h3><span class="circle">▤</span>Gestion administrative</h3><ul><li>Courriers et e-mails</li><li>Dossiers et documents</li><li>Suivi clients et fournisseurs</li></ul><a class="more" href="#">En savoir plus →<details>
-  <summary>En savoir plus →</summary>
-  <p>Je vous accompagne dans la gestion quotidienne de votre entreprise : traitement des courriers et e-mails, organisation des dossiers, suivi administratif des clients et fournisseurs.</p>
-  <p>Je vous aide à structurer vos documents, à gérer vos échéances et à simplifier vos démarches administratives.</p>
-  <p>Un accompagnement personnalisé, ponctuel ou régulier, selon vos besoins.</p>
-</details></article>
-<article class="card"><h3><span class="circle">♙</span>Support RH</h3><ul><li>Plannings et congés</li><li>Suivi administratif du personnel</li><li>Aide au recrutement</li></ul><<details>
-  <summary>En savoir plus →</summary>
-  <p>Je vous accompagne dans l'organisation et l'optimisation de votre gestion administrative afin de simplifier votre quotidien professionnel.</p>
-  <p>Tri et classement des documents, dématérialisation, création de tableaux de bord, mise en place de procédures et suivi des échéances : des solutions concrètes adaptées à votre activité.</p>
-  <p>Mon objectif : vous aider à gagner du temps, à améliorer votre organisation et à retrouver une gestion administrative plus sereine.</p>
-</details>>En savoir plus →<details>
-  <summary>En savoir plus →</summary>
-  <p>Je vous accompagne dans la gestion administrative de votre personnel : suivi des congés et absences, organisation des plannings et mise à jour des dossiers collaborateurs.</p>
-  <p>Je peux également vous assister dans vos démarches de recrutement : diffusion des offres, suivi des candidatures et organisation des entretiens.</p>
-  <p>Un soutien RH personnalisé pour simplifier votre quotidien, dans le respect de la confidentialité et de vos obligations.</p>
-</details></article>
-<article class="card"><h3><span class="circle">⚙</span>Organisation & suivi</h3><ul><li>Tri et archivage</li><li>Tableaux de suivi</li><li>Mise en place de procédures</li></ul><details>
-  <summary>En savoir plus →</summary>
-  <p>Je vous accompagne dans l'organisation et l'optimisation de votre gestion administrative afin de simplifier votre quotidien professionnel.</p>
-  <p>Tri et classement des documents, dématérialisation, création de tableaux de bord, mise en place de procédures et suivi des échéances : des solutions concrètes adaptées à votre activité.</p>
-  <p>Mon objectif : vous aider à gagner du temps, à améliorer votre organisation et à retrouver une gestion administrative plus sereine.</p>
-</details></article>
-<article class="card"><h3><span class="circle">€</span>Gestion commerciale & suivi clients</h3><ul><li>Préparation et suivi des devis</li><li>Facturation et suivi des règlements</li><li>Relances clients et impayés</li><li>Suivi des commandes</li><li>Gestion de la relation client</li><li>Mise à jour des fichiers clients et CRM</li></ul>
-<details>
-  <summary>En savoir plus →</summary>
-  <p>Je vous accompagne dans votre gestion commerciale : suivi des devis, commandes, facturation, relances clients et organisation de votre relation client.</p>
-  <p>Des solutions personnalisées pour vous faire gagner du temps et améliorer votre organisation commerciale.</p>
-  <p>Interventions ponctuelles ou régulières, à distance ou sur site.</p>
-  <p><strong>Besoin d'un accompagnement ?</strong> Contactez-moi pour un devis personnalisé.</p>
-</details>
-</article>
-  <article class="card"><h3><span class="circle">◇</span>Un soutien sur-mesure</h3><ul><li>Préparation des éléments comptables</li><li>Suivi des dépenses et recettes</li><li>Conseils adaptés à votre activité</li></ul><details>
-  <summary>En savoir plus →</summary>
-  <p>Chaque entreprise est unique, c'est pourquoi je vous propose un accompagnement administratif entièrement personnalisé, adapté à votre activité et à vos priorités.</p>
-  <p>Préparation des éléments comptables, suivi des dépenses et recettes, organisation de vos documents et assistance dans vos démarches quotidiennes : nous définissons ensemble les missions qui répondent à vos besoins.</p>
-  <p>Vous bénéficiez d'une interlocutrice de confiance, avec des interventions ponctuelles ou régulières, à distance ou sur site.</p>
-  <p><strong>Des prestations à la carte, sans forfait imposé, sur devis personnalisé.</strong></p>
-</details></article></div>
+<article class="card"><h3><span class="circle">▤</span>Gestion administrative</h3>
+<ul><li>Courriers et e-mails</li><li>Dossiers et documents</li><li>Suivi clients et fournisseurs</li></ul>
+<details class="service-details"><summary>En savoir plus <span aria-hidden="true">→</span></summary>
+<div class="service-details-content"><p>Je vous accompagne dans la gestion quotidienne de votre entreprise : traitement des courriers et e-mails, organisation des dossiers et suivi administratif des clients et fournisseurs.</p>
+<p>Classement, gestion des échéances et démarches administratives : un soutien adapté à votre activité.</p>
+<p>Interventions ponctuelles ou régulières, à distance ou sur site.</p></div></details></article>
+<article class="card"><h3><span class="circle">♙</span>Support RH</h3>
+<ul><li>Plannings et congés</li><li>Suivi administratif du personnel</li><li>Aide au recrutement</li></ul>
+<details class="service-details"><summary>En savoir plus <span aria-hidden="true">→</span></summary>
+<div class="service-details-content"><p>Je vous accompagne dans le suivi administratif de votre personnel : plannings, congés, absences et dossiers collaborateurs.</p>
+<p>Je peux également vous assister dans la diffusion des offres, le suivi des candidatures et l'organisation des entretiens.</p>
+<p>Un appui administratif RH personnalisé, dans le respect de la confidentialité.</p></div></details></article>
+<article class="card"><h3><span class="circle">⚙</span>Organisation &amp; suivi</h3>
+<ul><li>Tri et archivage</li><li>Tableaux de suivi</li><li>Mise en place de procédures</li></ul>
+<details class="service-details"><summary>En savoir plus <span aria-hidden="true">→</span></summary>
+<div class="service-details-content"><p>Je vous aide à structurer votre organisation : tri, classement, dématérialisation et suivi des échéances.</p>
+<p>Création de tableaux de bord et mise en place de procédures simples adaptées à votre fonctionnement.</p>
+<p>L'objectif : gagner du temps et retrouver une gestion plus sereine.</p></div></details></article>
+<article class="card"><h3><span class="circle">€</span>Gestion commerciale &amp; suivi clients</h3>
+<ul><li>Préparation et suivi des devis</li><li>Facturation et suivi des règlements</li><li>Relances clients et impayés</li><li>Suivi des commandes</li><li>Gestion de la relation client</li><li>Mise à jour des fichiers clients et CRM</li></ul>
+<details class="service-details"><summary>En savoir plus <span aria-hidden="true">→</span></summary>
+<div class="service-details-content"><p>Je vous accompagne dans le suivi de vos devis, commandes, factures et règlements, ainsi que dans les relances clients.</p>
+<p>J'organise et actualise vos fichiers clients et vos outils CRM pour faciliter le suivi de votre activité commerciale.</p>
+<p>Des interventions personnalisées, ponctuelles ou régulières, à distance ou sur site.</p></div></details></article>
+<article class="card"><h3><span class="circle">◇</span>Un soutien sur-mesure</h3>
+<ul><li>Préparation des éléments comptables</li><li>Suivi des dépenses et recettes</li><li>Conseils adaptés à votre activité</li></ul>
+<details class="service-details"><summary>En savoir plus <span aria-hidden="true">→</span></summary>
+<div class="service-details-content"><p>Nous définissons ensemble les missions administratives qui répondent à vos besoins et à vos priorités.</p>
+<p>Préparation des pièces comptables, suivi des dépenses et recettes et organisation des documents : un accompagnement à la carte.</p>
+<p>Prestations sur devis, sans forfait imposé.</p></div></details></article>
+</div>
 <div class="custom"><h3>▤ &nbsp; Des prestations<br>à la carte</h3><div><b>Un accompagnement adapté à vos besoins</b><p>Vous choisissez uniquement les missions dont vous avez besoin.</p><strong>Prestations sur devis, sans engagement.</strong></div></div></section>
 <section class="audience" id="pourqui"><h2 class="title">Pour qui ?</h2><div class="subtitle">J’ACCOMPAGNE LES PROFESSIONNELS DE TOUS SECTEURS</div><div class="aud-grid"><article class="aud"><span class="circle">⌂</span><h3>TPE & Artisans</h3><div class="pic tpe"></div><p>Un appui pour vous concentrer sur votre métier.</p></article><article class="aud"><span class="circle">♙</span><h3>Indépendants</h3><div class="pic ind"></div><p>Un soutien dans votre organisation.</p></article><article class="aud"><span class="circle">○</span><h3>Professions libérales</h3><div class="pic lib"></div><p>Un accompagnement adapté à vos besoins administratifs et RH.</p></article><article class="aud"><span class="circle">♜</span><h3>Agriculteurs</h3><div class="pic agr"></div><p>Une aide pour la gestion de vos documents et votre administratif.</p></article><article class="aud"><span class="circle">⌁</span><h3>Garagistes</h3><div class="pic gar"></div><p>Un soutien administratif pour vous faire gagner du temps.</p></article></div></section>
 <footer id="contact"><div class="foot"><div class="contact"><h2>Contactez-moi</h2><p>Une question ? Un besoin ? Parlons de votre projet !<br>Je vous réponds rapidement.</p><p class="privacy-contact" style="font-size:14px;line-height:1.6;margin:16px 0 0">Les informations transmises par e-mail ou téléphone servent à répondre à votre demande. <a href="confidentialite.html" style="text-decoration:underline">Données personnelles et droits : consulter la politique de confidentialité.</a></p></div><div class="coords">☎ &nbsp; 07 70 80 91 14<br>✉ &nbsp; essentielgest@outlook.com<br>◎ &nbsp; www.essentielgest-by-gwenn.fr</div><div class="discover">Découvrez<br>mon univers <img alt="QR code" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https%3A%2F%2Fessentielgest.github.io%2Fessentielgest%2F"></div></div></footer>
