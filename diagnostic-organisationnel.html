@@ -61,7 +61,29 @@ const scoreText=app.querySelector('.score')?.textContent||'';
 const bilanTitle=app.querySelector('h2')?.textContent||'';
 const priorities=answers.map((a,i)=>({a,i})).filter(x=>x.a>0).sort((a,b)=>b.a-a.a).slice(0,3).map(x=>questions[x.i][2]);
 const contact=app.querySelector('a[href^="mailto:"]');
-if(contact){contact.textContent='M’écrire directement';contact.href='mailto:essentielgest@outlook.com?subject='+encodeURIComponent('Mon diagnostic organisationnel — '+scoreText)+'&body='+encodeURIComponent('Bonjour Gwenn,\n\nJe viens de réaliser votre diagnostic.\nRésultat : '+scoreText+' — '+bilanTitle+'\nPriorités : '+(priorities.join(', ')||'Aucune difficulté particulière')+'\n\nJe souhaite échanger avec vous.');}
+if(contact){
+const subject='Mon diagnostic organisationnel — '+scoreText;
+const message='Bonjour Gwenn,\n\nJe viens de réaliser votre diagnostic.\nRésultat : '+scoreText+' — '+bilanTitle+'\nPriorités : '+(priorities.join(', ')||'Aucune difficulté particulière')+'\n\nJe souhaite échanger avec vous.';
+contact.textContent='Ouvrir ma messagerie';
+contact.href='mailto:essentielgest@outlook.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(message);
+const fallback=document.createElement('details');
+fallback.className='no-print';
+fallback.innerHTML='<summary>Ma messagerie ne s’ouvre pas</summary><p>Utilisez le formulaire de rappel ci-dessous ou copiez ce message dans votre messagerie habituelle.</p><label>Message pour essentielgest@outlook.com<textarea rows="8" readonly style="display:block;width:100%;margin:8px 0;font:inherit"></textarea></label><button type="button" class="button">Copier le message</button><p class="muted" role="status"></p>';
+contact.closest('.actions').after(fallback);
+const draft=fallback.querySelector('textarea');
+draft.value='À : essentielgest@outlook.com\nObjet : '+subject+'\n\n'+message;
+fallback.querySelector('button').onclick=async()=>{
+const status=fallback.querySelector('[role="status"]');
+try{
+await navigator.clipboard.writeText(draft.value);
+status.textContent='Message copié.';
+}catch{
+draft.focus();
+draft.select();
+status.textContent='Le texte est sélectionné. Copiez-le avec Ctrl+C ou le menu Copier.';
+}
+};
+}
 const section=document.createElement('section');section.className='lead-box no-print';section.innerHTML=`
 <h3>Échangeons sur votre diagnostic</h3>
 <p>Vous souhaitez que je vous aide à avancer sur vos priorités ? Laissez-moi vos coordonnées : je vous recontacterai pour en discuter, gratuitement et sans engagement.</p>
